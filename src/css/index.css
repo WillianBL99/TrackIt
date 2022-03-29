@@ -14,7 +14,11 @@
 
     --color-text-gray: #666666;
 
+    --backgroud-main: #F2F2F2;
+
     --font-size-login: 1.5rem;
+    --font-size-h2: 2.2rem;
+    --font-size-p: 1.7rem;
 
     --padding-inline: 2rem;
 }
