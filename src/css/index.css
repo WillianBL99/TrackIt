@@ -1,0 +1,44 @@
+*{
+
+    box-sizing: border-box;
+
+    --font-family-logo: 'Playball', cursive;
+    --font-family-main: 'Lexend Deca', sans-serif;
+    
+    --color-desabled: #52B6FF;
+    --color-header: #126BA5;
+    --color-main: #52B6FF;
+    --color-gray-slected: #CFCFCF;
+    --color-green: #8FC549;
+    --color-placeholder: #dbdbdb;
+
+    --color-text-gray: #666666;
+
+    --font-size-login: 1.5rem;
+
+    --padding-inline: 2rem;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    font-family: var(--font-family-main);
+
+}
+
+.root{  
+	display: flex;
+	flex-direction: column;
+	
+	width: 100vw;
+	height: 100vh;
+}
+
+input, button, select {
+    cursor: pointer;
+}
