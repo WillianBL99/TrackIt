@@ -11,8 +11,7 @@ function Register() {
                 <input type="email" placeholder="email" required />
                 <input type="password" placeholder="senha" required />
                 <input type="name" placeholder="nome" required />
-                <label htmlFor="image">foto</label>
-                <input type="file" id="image" required />
+                <input type="text" placeholder="foto" required></input>
                 <button type="submit">Cadastrar</button>
             </form>
             <Link to={'/'}>Não tem uma conta? Cadastre-se!</Link>
@@ -23,8 +22,8 @@ function Register() {
 export default Register;
 
 const Logo = styled.img`
-    width: 15rem;
-    height: 15rem;
+    width: 10rem;
+    height: 10rem;
 `
 
 const Conteiner = styled.main`
@@ -46,7 +45,7 @@ const Conteiner = styled.main`
         width: 100%;
         
         padding-top: 50px;
-        padding-bottom: 40px;
+        padding-bottom: 25px;
     }
 
     form input {
@@ -58,7 +57,7 @@ const Conteiner = styled.main`
         font-size: var(--font-size-login);
         
         border: 1px solid #D5D5D5;
-        border-radius: 5px;
+        border-radius: 10px;
     }
     
     form input[type="file"] {
@@ -73,23 +72,23 @@ const Conteiner = styled.main`
         font-size: var(--font-size-login);
         
         border: 1px solid #D5D5D5;
-        border-radius: 5px;
+        border-radius: 10px;
 
         color: var(--place-holder);
     }
 
     form button {
-        height: 3.8rem;
+        height: 3.5rem;
 
-        font-size: 1.8rem;
+        font-size: 1.6rem;
 
         background: var(--color-main);
         color: #fff;
-        border-radius: 4.63636px;
+        border-radius: 10px;
     }
 
     a {
-        font-size: 1.3rem;
+        font-size: 1.05rem;
         color: var(--color-main);
     }
 `

@@ -20,8 +20,8 @@ function Login() {
 export default Login;
 
 const Logo = styled.img`
-    width: 15rem;
-    height: 15rem;
+    width: 10rem;
+    height: 10rem;
 `
 
 const Conteiner = styled.main`
@@ -42,11 +42,11 @@ const Conteiner = styled.main`
         width: 100%;
         
         padding-top: 50px;
-        padding-bottom: 40px;
+        padding-bottom: 25px;
     }
 
     form input {
-        height: 3.8rem;
+        height: 3.5rem;
 
         margin-bottom: 10px;
         padding-left: 20px;
@@ -54,21 +54,22 @@ const Conteiner = styled.main`
         font-size: var(--font-size-login);
         
         border: 1px solid #D5D5D5;
-        border-radius: 5px;
+        border-radius: 10px;
     }
 
     form button {
-        height: 3.8rem;
+        height: 3.5rem;
 
-        font-size: 1.8rem;
+        font-size: 1.6rem;
 
         background: var(--color-main);
         color: #fff;
-        border-radius: 4.63636px;
+        border-radius: 10px;
     }
 
     a {
-        font-size: 1.3rem;
+        text-align: center;
+        font-size: 1.05rem;
         color: var(--color-main);
     }
 `

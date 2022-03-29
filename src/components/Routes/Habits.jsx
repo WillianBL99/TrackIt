@@ -37,11 +37,12 @@ const Conteiner = styled.main`
     width: 100%;
     height: 100%;
 
+    padding-top: var(--height-header);
     padding-inline: var(--padding-inline);
     background-color: var(--backgroud-main);
 
     p {
-        margin-top: 3.6rem;
+        margin-top: 2.8rem;
         font-size: var(--font-size-p);
         color: var(--color-text-gray);
     }
@@ -58,7 +59,7 @@ const Conteiner = styled.main`
     }
 
     article input {
-        height: 3.8rem;        
+        height: 3.5rem;        
 
         margin-bottom: 10px;
         padding-left: 20px;
@@ -94,11 +95,11 @@ const Conteiner = styled.main`
         justify-content: flex-end;
         align-items: center;
 
-        margin-top: 35px;
+        margin-top: 30px;
     }
 
     article button {
-        height: 3.8rem;
+        height: 3.2rem;
 
         padding-inline: 22px;
         font-size: var(--font-size-p);
@@ -120,15 +121,15 @@ const AddHabit = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    margin-top: 3rem;
+    margin-top: 2.8rem;
 
     font-size: var(--font-size-h2);
     color: var(--color-header);
 
     ion-icon {
 
-        padding: 0 5px;
-        font-size: 3rem;
+        padding: 0 3px;
+        font-size: 2.8rem;
 
         border-radius: 7px;
 

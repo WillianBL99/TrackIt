@@ -18,9 +18,16 @@ const HeaderST = styled.header`
     align-items: center;
     justify-content: space-between;
 
-    height: 3.5rem;
+    height: var(--height-header);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
 
     background-color: var(--color-header);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
 
     img {
         height: 70%;
