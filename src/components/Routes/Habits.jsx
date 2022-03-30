@@ -1,28 +1,61 @@
 import styled from "styled-components";
+import { useState } from 'react';
+import { useEffect } from "react/cjs/react.production.min";
+import axios from "axios";
 
 function Habits() {
+    const [habits, setHabits] = useState([]);
+    const [habit, setHabit] = useState({});
+    const [showInput, setShowInput] = useState(false);
+
+    function createHabit() {
+        if (showInput) {
+            return (
+                <article>
+                    <input type="text" placeholder="nome do hábito" />
+                    <div className="weekdays">
+                        <span>D</span>
+                        <span>S</span>
+                        <span>T</span>
+                        <span>Q</span>
+                        <span>Q</span>
+                        <span>S</span>
+                        <span>S</span>
+                    </div>
+                    <div className="options">
+                        <button>Cancelar</button>
+                        <button>Salvar</button>
+                    </div>
+                </article>
+            );
+        } else { return <></> }
+    }
+
+    function storyNewHabit(){
+        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
+        const config = {
+            headers: {
+                'Autorization': `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}`
+            }
+        };
+        const promise = axios.post(url, habit, config);  
+        promise.then(response => {
+            console.log(response.data);
+            setHabits(response.data);
+            setHabit({});
+            setShowInput(false);
+        });
+        promise.catch(error => {console.error(error);});
+    };
+
+    console.log(JSON.parse(localStorage.getItem('userInfo')).token);
     return (
         <Conteiner>
             <AddHabit>
                 <h2>Meus hábitos</h2>
-                <ion-icon name="add-sharp"></ion-icon>
+                <ion-icon onClick={() => setShowInput(!showInput)} name="add-sharp"></ion-icon>
             </AddHabit>
-            <article>
-                <input type="text" placeholder="nome do hábito" />
-                <div className="weekdays">
-                    <span>D</span>
-                    <span>S</span>
-                    <span>T</span>
-                    <span>Q</span>
-                    <span>Q</span>
-                    <span>S</span>
-                    <span>S</span>
-                </div>
-                <div className="options">
-                    <button>Cancelar</button>
-                    <button>Salvar</button>
-                </div>
-            </article>
+            {createHabit()}
             <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
         </Conteiner>
     );

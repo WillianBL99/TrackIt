@@ -16,7 +16,7 @@ function Register() {
         password: ""
     });
 
-    function login(event) {
+    function register(event) {
         event.preventDefault();        
         const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
 
@@ -31,7 +31,7 @@ function Register() {
     return (
         <Conteiner>
             <Logo src={LogoImg} />
-            <form onSubmit={login} >
+            <form onSubmit={register} >
                 <input
                     onChange={e => { setUserData({ ...userData, name: e.target.value }) }}
                     value={userData.name}
@@ -80,6 +80,8 @@ const Conteiner = styled.main`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    z-index: 5;
 
     width: 100%;
     height: 100%;

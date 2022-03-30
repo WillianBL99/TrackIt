@@ -1,15 +1,33 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import styled from "styled-components";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 import LogoImg from '../../assets/logo.svg'
 
 function Login() {
+    const navigate = useNavigate();
     const { state } = useLocation();
     const [userData, setUserData] = useState({ email: '', password: '' });
-    console.log(userData);
-    console.log(state);
+
+    function storeLogin(info){
+        localStorage.setItem('userInfo', JSON.stringify(info));
+    }
+
+    function login(event) {
+        event.preventDefault();
+        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
+
+        const promise = axios.post(url, userData);
+
+        promise.then(response => {
+            storeLogin(response.data);
+            navigate('/habitos');
+        });
+
+        promise.catch(() => alert('Usuário ou senha inválidos'));
+    }
 
     useEffect(() => {
         if (state) {
@@ -20,7 +38,7 @@ function Login() {
     return (
         <Conteiner>
             <Logo src={LogoImg} />
-            <form>
+            <form onSubmit={login} >
                 <input
                     onChange={e => { setUserData({ ...userData, email: e.target.value }) }}
                     value={userData.email} type="email"
@@ -28,7 +46,7 @@ function Login() {
                     required
                 />
                 <input 
-                    onChange={e => { setUserData({ ...userData, password: e.target.value }) }}
+                    onChange={e => {setUserData({ ...userData, password: e.target.value }) }}
                     value={userData.password} 
                     type="password" 
                     placeholder="senha" 
@@ -53,6 +71,8 @@ const Conteiner = styled.main`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    z-index: 5;
 
     width: 100%;
     height: 100%;
