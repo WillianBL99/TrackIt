@@ -1,5 +1,6 @@
 import '../../css/reset.css'
 import '../../css/index.css'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Habits from '../Routes/Habits';
