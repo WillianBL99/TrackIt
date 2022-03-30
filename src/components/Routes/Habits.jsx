@@ -68,6 +68,11 @@ const Conteiner = styled.main`
         
         border: 1px solid #D5D5D5;
         border-radius: 10px;
+        color: var(--color-text-gray);
+    }
+
+    input::placeholder {
+        color: var(--color-gray-desabled);
     }
 
     article .weekdays {
@@ -86,9 +91,16 @@ const Conteiner = styled.main`
         font-size: var(--font-size-p);
         color: var(--color-text-gray);
 
-        border: 1px solid #D5D5D5;
+        border: 1px solid var(--color-gray-desabled);
         border-radius: 10px;
-    }       
+        color: var(--color-gray-desabled);
+    }   
+    
+    span:hover{
+        cursor: pointer;    
+        background-color: var(--color-gray-desabled);
+        color: #fff;
+    }
 
     article .options {
         display: flex;
