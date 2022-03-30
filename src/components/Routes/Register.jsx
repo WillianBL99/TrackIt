@@ -23,7 +23,7 @@ function Register() {
         const promise = axios.post(url, userData);
         promise.then(response => {
             console.log(response.data);
-            navigate('/', {state: {name: userData.name, email: userData.email }});
+            navigate('/', {state: {password: userData.password, email: userData.email }});
         });
         promise.catch(error => {console.log(error);});
     }

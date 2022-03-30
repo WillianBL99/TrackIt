@@ -1,24 +1,39 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import LogoImg from '../../assets/logo.svg'
 
 function Login() {
-
-    const location = useLocation();
+    const { state } = useLocation();
+    const [userData, setUserData] = useState({ email: '', password: '' });
+    console.log(userData);
+    console.log(state);
 
     useEffect(() => {
-        console.log(location);
-    }, []);
+        if (state) {
+            setUserData({ email: state.email, password: state.password });
+        }
+    }, [state]);
 
     return (
         <Conteiner>
             <Logo src={LogoImg} />
             <form>
-                <input type="email" placeholder="email" required />
-                <input type="password" placeholder="senha" required />
+                <input
+                    onChange={e => { setUserData({ ...userData, email: e.target.value }) }}
+                    value={userData.email} type="email"
+                    placeholder="email"
+                    required
+                />
+                <input 
+                    onChange={e => { setUserData({ ...userData, password: e.target.value }) }}
+                    value={userData.password} 
+                    type="password" 
+                    placeholder="senha" 
+                    required 
+                />
                 <button type="submit">Entrar</button>
             </form>
             <Link to={'/cadastro'}>Não tem uma conta? Cadastre-se!</Link>
