@@ -1,26 +1,30 @@
 import styled from "styled-components";
-import { useState } from 'react';
-import { useEffect } from "react/cjs/react.production.min";
+import { useState, useEffect } from 'react';
 import axios from "axios";
 
 function Habits() {
+    // create a colection of days of the week with the number order
+    /*  */
+
+
+
+
     const [habits, setHabits] = useState([]);
-    const [habit, setHabit] = useState({});
+    const [habit, setHabit] = useState({ name: '', days: [1,2,3]});
     const [showInput, setShowInput] = useState(false);
 
     function createHabit() {
         if (showInput) {
             return (
                 <article>
-                    <input type="text" placeholder="nome do hábito" />
+                    <input
+                        onChange={e => { setHabit({ ...habit, name: e.target.value }) }}
+                        value={habit.name}
+                        type="text"
+                        placeholder="nome do hábito"
+                    />
                     <div className="weekdays">
-                        <span>D</span>
-                        <span>S</span>
-                        <span>T</span>
-                        <span>Q</span>
-                        <span>Q</span>
-                        <span>S</span>
-                        <span>S</span>
+                        <Days setDays={(days)=> setHabit({...habits, days: days})} days={habit.days} />
                     </div>
                     <div className="options">
                         <button>Cancelar</button>
@@ -31,22 +35,24 @@ function Habits() {
         } else { return <></> }
     }
 
-    function storyNewHabit(){
+
+    function storyNewHabit() {
         const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
         const config = {
             headers: {
                 'Autorization': `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}`
             }
         };
-        const promise = axios.post(url, habit, config);  
+        const promise = axios.post(url, habit, config);
         promise.then(response => {
             console.log(response.data);
             setHabits(response.data);
             setHabit({});
             setShowInput(false);
         });
-        promise.catch(error => {console.error(error);});
+        promise.catch(error => { console.error(error); });
     };
+
 
     console.log(JSON.parse(localStorage.getItem('userInfo')).token);
     return (
@@ -62,6 +68,34 @@ function Habits() {
 }
 
 export default Habits;
+
+
+function Days({ setDays, days }) {
+    const daysOfWeek = new Map();
+    daysOfWeek.set(1, 'S');
+    daysOfWeek.set(2, 'T');
+    daysOfWeek.set(3, 'Q');
+    daysOfWeek.set(4, 'Q');
+    daysOfWeek.set(5, 'S');
+    daysOfWeek.set(6, 'S');
+    daysOfWeek.set(7, 'D');
+
+    function handleCheck(day) {
+        setDays(days.includes(day) ? days.filter(d => d !== day) : [...days, day]);
+    }
+
+    return Array.from(daysOfWeek.keys()).map(day => {
+        return (
+            <span
+                key={day}
+                className={days.includes(day) ? 'checked' : ''}
+                onClick={() => handleCheck(day)}
+            >   
+                {daysOfWeek.get(day)}
+            </span>
+        );
+    });
+}
 
 const Conteiner = styled.main`    
     display: flex;
@@ -128,11 +162,15 @@ const Conteiner = styled.main`
         border-radius: 10px;
         color: var(--color-gray-desabled);
     }   
+
+    article .weekdays span.checked {
+        background-color: var(--color-gray-desabled);
+        color: #fff;
+    }
     
     span:hover{
         cursor: pointer;    
-        background-color: var(--color-gray-desabled);
-        color: #fff;
+        border-color: var(--color-gray-desabled);
     }
 
     article .options {
