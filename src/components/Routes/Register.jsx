@@ -1,4 +1,6 @@
 import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from 'axios';
@@ -6,6 +8,7 @@ import axios from 'axios';
 import LogoImg from '../../assets/logo.svg'
 
 function Register() {
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({
         email: "",
         name: "",
@@ -14,12 +17,14 @@ function Register() {
     });
 
     function login(event) {
-        event.preventDefault();
-        
+        event.preventDefault();        
         const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
 
         const promise = axios.post(url, userData);
-        promise.then(response => {console.log(response.data);});
+        promise.then(response => {
+            console.log(response.data);
+            navigate('/', {state: {name: userData.name, email: userData.email }});
+        });
         promise.catch(error => {console.log(error);});
     }
 

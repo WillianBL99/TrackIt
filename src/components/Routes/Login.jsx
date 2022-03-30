@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useParams, useLocation } from 'react-router-dom';
 
 import LogoImg from '../../assets/logo.svg'
 
 function Login() {
+
+    const location = useLocation();
+
+    useEffect(() => {
+        console.log(location);
+    }, []);
+
     return (
         <Conteiner>
             <Logo src={LogoImg} />
