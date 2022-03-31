@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import Task from "./Task";
 
 function Habits() {
     const [reload, setReload] = useState(false);
@@ -56,7 +57,7 @@ function Habits() {
     function createHabit() {
         if (showInput) {
             return (
-                <article>
+                <CreatTask>
                     <input
                         onChange={({ target }) => setHabit({ ...habit, name: target.value })}
                         value={habit.name}
@@ -70,7 +71,7 @@ function Habits() {
                         <button onClick={cancel} >Cancelar</button>
                         <button onClick={storyNewHabit} >Salvar</button>
                     </div>
-                </article>
+                </CreatTask>
             );
         } else { return <></> }
     }
@@ -78,14 +79,7 @@ function Habits() {
     function makeHabits() {
         if (habits.length !== 0) {
             return (
-                habits.map(habit => {
-                    return (<article>
-                        <p>{habit.name}</p>
-                        <div className="weekdays">
-                            <Days days={habit.days} />
-                        </div>
-                    </article>)
-                }));
+                habits.map(({id,name,days}) => <Task id={id} name={name} days={days} />));
         } else { 
             return <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p> 
         }
@@ -107,14 +101,17 @@ export default Habits;
 
 
 function Days({ setDays=()=>{}, days }) {
-    const daysOfWeek = new Map();
-    daysOfWeek.set(1, 'S');
-    daysOfWeek.set(2, 'T');
-    daysOfWeek.set(3, 'Q');
-    daysOfWeek.set(4, 'Q');
-    daysOfWeek.set(5, 'S');
-    daysOfWeek.set(6, 'S');
-    daysOfWeek.set(7, 'D');
+    const daysOfWeek = new Map(
+        [
+            [1,'S'],
+            [2,'T'],
+            [3,'Q'],
+            [4,'Q'],
+            [5,'S'],
+            [6,'S'],
+            [7,'D']
+        ]
+    );
 
     function handleCheck(day) {
         setDays(days.includes(day) ? days.filter(d => d !== day) : [...days, day]);
@@ -146,100 +143,13 @@ const Conteiner = styled.main`
     padding-inline: var(--padding-inline);
     background-color: var(--backgroud-main);
 
-    p {
+    >p {
         margin-top: 2.8rem;
         font-size: var(--font-size-p);
         color: var(--color-text-gray);
     }
 
-    article {
-        display: flex;
-        flex-direction: column;
-        
-        margin-top: 2.2rem;
-        padding: 18px;
-        border-radius: 10px;
-
-        background-color: #fff;
-    }
-
-    article p {
-        margin: 0;
-        margin-bottom: 18px;
-    }
-
-    article input {
-        height: 3.5rem;        
-
-        margin-bottom: 10px;
-        padding-left: 20px;
-
-        font-size: var(--font-size-login);
-        
-        border: 1px solid #D5D5D5;
-        border-radius: 10px;
-        color: var(--color-text-gray);
-    }
-
-    input::placeholder {
-        color: var(--color-gray-desabled);
-    }
-
-    article .weekdays {
-        display: flex;
-    }
-
-    article .weekdays span {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        width: 2.8rem;
-        height: 2.8rem;
-        margin-inline-end: 4px;
-
-        font-size: var(--font-size-p);
-        color: var(--color-text-gray);
-
-        border: 1px solid var(--color-gray-desabled);
-        border-radius: 10px;
-        color: var(--color-gray-desabled);
-    }   
-
-    article .weekdays span.checked {
-        background-color: var(--color-gray-desabled);
-        color: #fff;
-    }
     
-    span:hover{
-        cursor: pointer;    
-        border-color: var(--color-gray-desabled);
-    }
-
-    article .options {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-
-        margin-top: 30px;
-    }
-
-    article button {
-        height: 3.2rem;
-
-        padding-inline: 22px;
-        font-size: var(--font-size-p);
-
-        border-radius: 10px;
-
-        background: var(--color-main);
-        color: #fff;
-    }
-
-    article button:first-child {
-        background: none;
-        color: var(--color-main);
-    }
 `
 
 const AddHabit = styled.div`
@@ -264,3 +174,87 @@ const AddHabit = styled.div`
     }
 `
 
+const CreatTask = styled.article`
+
+    display: flex;
+    flex-direction: column;
+    
+    margin-top: 2.2rem;
+    padding: 18px;
+    border-radius: 10px;
+
+    background-color: #fff;
+
+    input {
+        height: 3.5rem;        
+
+        margin-bottom: 10px;
+        padding-left: 20px;
+
+        font-size: var(--font-size-login);
+        
+        border: 1px solid #D5D5D5;
+        border-radius: 10px;
+        color: var(--color-text-gray);
+    }
+
+    input::placeholder {
+        color: var(--color-gray-desabled);
+    }
+
+    .weekdays {
+        display: flex;
+    }
+
+    .weekdays span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 2.8rem;
+        height: 2.8rem;
+        margin-inline-end: 4px;
+
+        font-size: var(--font-size-p);
+        color: var(--color-text-gray);
+
+        border: 1px solid var(--color-gray-desabled);
+        border-radius: 10px;
+        color: var(--color-gray-desabled);
+    }   
+
+    .weekdays span.checked {
+        background-color: var(--color-gray-desabled);
+        color: #fff;
+    }
+    
+    span:hover{
+        cursor: pointer;    
+        border-color: var(--color-gray-desabled);
+    }
+
+    .options {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        margin-top: 30px;
+    }
+
+    button {
+        height: 3.2rem;
+
+        padding-inline: 22px;
+        font-size: var(--font-size-p);
+
+        border-radius: 10px;
+
+        background: var(--color-main);
+        color: #fff;
+    }
+
+    button:first-child {
+        background: none;
+        color: var(--color-main);
+    }
+`
