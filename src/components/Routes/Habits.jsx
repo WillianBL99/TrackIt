@@ -3,58 +3,63 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 
 function Habits() {
-    // create a colection of days of the week with the number order
-    /*  */
-
-
-
 
     const [habits, setHabits] = useState([]);
-    const [habit, setHabit] = useState({ name: '', days: [1,2,3]});
+    const [habit, setHabit] = useState({ name: 'Programar', days: [1] });
     const [showInput, setShowInput] = useState(false);
+
+    function storyNewHabit() {
+        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
+        const { token } = JSON.parse(localStorage.getItem('userInfo'));
+
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        };
+
+        const { name, days } = habit;
+        const body = { name, days };
+
+        console.log(body);
+        const promise = axios.post(url, body, config);
+
+        promise.then(response => {
+            console.log(response.data);
+            setHabits(response.data);
+            setHabit({name: '', days: []});
+            setShowInput(false);
+        });
+        promise.catch(error => console.log(error.response));
+    };
+
+    function cancel() {
+        setHabit({ name: '', days: [] });
+        setShowInput(false);
+    }
 
     function createHabit() {
         if (showInput) {
             return (
                 <article>
                     <input
-                        onChange={e => { setHabit({ ...habit, name: e.target.value }) }}
+                        onChange={({target}) => setHabit({ ...habit, name: target.value }) }
                         value={habit.name}
                         type="text"
                         placeholder="nome do hábito"
                     />
                     <div className="weekdays">
-                        <Days setDays={(days)=> setHabit({...habits, days: days})} days={habit.days} />
+                        <Days setDays={(days) => setHabit({...habit, days: days })} days={habit.days} />
                     </div>
                     <div className="options">
-                        <button>Cancelar</button>
-                        <button>Salvar</button>
+                        <button onClick={cancel} >Cancelar</button>
+                        <button onClick={storyNewHabit} >Salvar</button>
                     </div>
                 </article>
             );
         } else { return <></> }
     }
 
-
-    function storyNewHabit() {
-        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
-        const config = {
-            headers: {
-                'Autorization': `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}`
-            }
-        };
-        const promise = axios.post(url, habit, config);
-        promise.then(response => {
-            console.log(response.data);
-            setHabits(response.data);
-            setHabit({});
-            setShowInput(false);
-        });
-        promise.catch(error => { console.error(error); });
-    };
-
-
-    console.log(JSON.parse(localStorage.getItem('userInfo')).token);
     return (
         <Conteiner>
             <AddHabit>
@@ -90,7 +95,7 @@ function Days({ setDays, days }) {
                 key={day}
                 className={days.includes(day) ? 'checked' : ''}
                 onClick={() => handleCheck(day)}
-            >   
+            >
                 {daysOfWeek.get(day)}
             </span>
         );
