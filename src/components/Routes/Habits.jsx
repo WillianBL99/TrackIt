@@ -263,3 +263,4 @@ const AddHabit = styled.div`
         color: #fff;
     }
 `
+
