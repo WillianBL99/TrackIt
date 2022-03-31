@@ -52,6 +52,11 @@ const Conteiner = styled.footer`
 
     box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.25);
 
+    a {
+        font-size: var(--font-size-p);
+        color: var(--color-main);
+    }
+
     div {
         display: flex;
         justify-content: space-between;
@@ -83,5 +88,7 @@ const Conteiner = styled.footer`
 
         background-color: var(--color-main);
     }
+
+    
 `
 
