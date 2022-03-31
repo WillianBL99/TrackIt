@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import UserContext from "../../providers/UserContext";
+import APIUrlContext from "../../providers/APIUrlContext";
 import axios from "axios";
 import Task from "./Task";
 
@@ -7,36 +9,22 @@ function Habits() {
     const [habits, setHabits] = useState([]);
     const [habit, setHabit] = useState({ name: '', days: [] });
     const [showInput, setShowInput] = useState(false);
+    const {url} = useContext(APIUrlContext);
+    const {user} = useContext(UserContext);
+    const {config} = user;
+    console.log(user);
 
     useEffect(() => {
         fetchTasks();
     }, []);
 
     function fetchTasks(){
-        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
-        const { token } = JSON.parse(localStorage.getItem('userInfo'));
-
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        };
-
         const promise = axios.get(url, config);
         promise.then(response => {console.log(response.data); setHabits(response.data) });
         promise.catch(error => { console.log(error.response.data) });
     }
 
     function storyNewHabit() {
-        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
-        const { token } = JSON.parse(localStorage.getItem('userInfo'));
-
-        const config = {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        };
-
         const { name, days } = habit;
         const body = { name, days };
 

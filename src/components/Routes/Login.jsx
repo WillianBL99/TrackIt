@@ -1,18 +1,26 @@
-import { useState, useEffect } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { useState, useEffect,useContext } from "react";
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import styled from "styled-components";
-import { useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 import LogoImg from '../../assets/logo.svg'
+import UserContext from "../../providers/UserContext";
 
 function Login() {
+    const {user, setUser} = useContext(UserContext);
     const navigate = useNavigate();
     const { state } = useLocation();
     const [userData, setUserData] = useState({ email: '', password: '' });
 
     function storeLogin(info){
         localStorage.setItem('userInfo', JSON.stringify(info));
+        const {token,image,name,email} = info;
+        setUser({
+            config: {headers: {Authorization: `Bearer ${token}`}},
+            image,
+            name,
+            email
+        })
     }
 
     function login(event) {

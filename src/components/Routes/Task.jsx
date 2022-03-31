@@ -1,20 +1,20 @@
 import axios from "axios";
 import styled from "styled-components";
 
+import { useContext } from "react";
+import APIUrlContext from "../../providers/APIUrlContext";
+import UserContext from "../../providers/UserContext";
+
 
 function Task({ id, name, days, fetchTasks }) {
+    const {url} = useContext(APIUrlContext);
+    const {user} = useContext(UserContext);
+    const {config} = user;
 
     function deleteTask() {
         if (window.confirm('Deseja realmente excluir essa tarefa?')) {
-            const url = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`;
-            const { token } = JSON.parse(localStorage.getItem('userInfo'));
-            const config = {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            };
-
-            const promise = axios.delete(url, config);
+            
+            const promise = axios.delete(`${url}/${id}`, config);
             promise.then(() => fetchTasks());
             promise.catch(error => console.log(error.response));
         }
