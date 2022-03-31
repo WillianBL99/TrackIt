@@ -5,23 +5,37 @@ import styled from 'styled-components';
 
 import Footer from "./Footer";
 import Header from "./Header";
+import axios from 'axios';
 
 function Today() {
+    const [tasks, setTasks] = useState([]);
+    const { user } = useContext(UserContext);
+    const { url } = useContext(APIUrlContext);
+    const { config } = user;
+
+    useEffect(() => {
+        const promise = axios.get(`${url}/today`, config);
+        promise.then(response => {
+            setTasks(response.data);
+        });
+        promise.catch(error => {console.log(error.response.data)});
+
+    }, []);
+
+    function assembleTasks() {
+        return tasks.map(task => {
+            console.log(task);
+            return <TodayTaskST key={task.id} task={task} />
+        });
+    }
+
     return (
         <>
             <Header />
             <Conteiner >
                 <h2>Segunda, 31/03</h2>
                 <p>Nenhum hábito concluido ainda</p>
-
-                <TodayTask>
-                    <div>
-                        <strong>Ler 1 capítulo de livro</strong>
-                        <small>Seu recorde: 5 dias</small>
-                        <small>Seu recorde: 5 dias</small>
-                    </div>
-                    <ion-icon name="checkmark-outline"></ion-icon>
-                </TodayTask>
+                {assembleTasks()}
             </Conteiner>
             <Footer />
         </>
@@ -29,6 +43,24 @@ function Today() {
 }
 
 export default Today;
+
+function TodayTaskST({task}) {
+    const {id,name,done,currentSequence, highestSequence} = task;
+    return (
+        <TodayTask>
+            <div>
+                <strong>{name}</strong>
+                <small>Sequência atual: {currentSequence} dias</small>
+                <small>Seu recorde: {highestSequence} dias</small>
+            </div>
+            <ion-icon
+                className={done ? 'done' : ''}
+                name="checkmark-outline">
+
+            </ion-icon>
+        </TodayTask>
+    )
+}
 
 const Conteiner = styled.main`  
     display: flex;
@@ -62,6 +94,7 @@ const TodayTask = styled.article`
     display: flex;
     justify-content: space-between;
 
+    margin-bottom: 2.2rem;
     padding: 18px;
     border-radius: 10px;
     background-color: #fff;
@@ -93,6 +126,7 @@ const TodayTask = styled.article`
         color: #fff;
     }
 
-    .selected {
+    .done {
         background-color: var(--color-green);
+    }
 `

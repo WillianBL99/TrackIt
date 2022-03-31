@@ -31,7 +31,7 @@ function Login() {
 
         promise.then(response => {
             storeLogin(response.data);
-            navigate('/habitos');
+            navigate('/hoje');
         });
 
         promise.catch(() => alert('Usuário ou senha inválidos'));
