@@ -1,9 +1,29 @@
+import axios from "axios";
 import styled from "styled-components";
 
-function Task({name, days}) {
+
+function Task({ id, name, days, fetchTasks }) {
+
+    function deleteTask() {
+        if (window.confirm('Deseja realmente excluir essa tarefa?')) {
+            const url = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`;
+            const { token } = JSON.parse(localStorage.getItem('userInfo'));
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            };
+
+            const promise = axios.delete(url, config);
+            promise.then(() => fetchTasks());
+            promise.catch(error => console.log(error.response));
+        }
+    }
+
+
     return (
         <Conteiner>
-            <ion-icon name="trash-outline"></ion-icon>
+            <div onClick={deleteTask}><ion-icon name="trash-outline"></ion-icon></div>
             <p>{name}</p>
             <div className="weekdays">
                 <Days days={days} />
@@ -17,13 +37,13 @@ export default Task;
 function Days({ days }) {
     const daysOfWeek = new Map(
         [
-            [1,'S'],
-            [2,'T'],
-            [3,'Q'],
-            [4,'Q'],
-            [5,'S'],
-            [6,'S'],
-            [7,'D']
+            [1, 'S'],
+            [2, 'T'],
+            [3, 'Q'],
+            [4, 'Q'],
+            [5, 'S'],
+            [6, 'S'],
+            [7, 'D']
         ]
     );
 

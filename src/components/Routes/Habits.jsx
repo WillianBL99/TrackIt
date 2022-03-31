@@ -4,12 +4,15 @@ import axios from "axios";
 import Task from "./Task";
 
 function Habits() {
-    const [reload, setReload] = useState(false);
     const [habits, setHabits] = useState([]);
     const [habit, setHabit] = useState({ name: '', days: [] });
     const [showInput, setShowInput] = useState(false);
 
     useEffect(() => {
+        fetchTasks();
+    }, []);
+
+    function fetchTasks(){
         const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
         const { token } = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -22,7 +25,7 @@ function Habits() {
         const promise = axios.get(url, config);
         promise.then(response => {console.log(response.data); setHabits(response.data) });
         promise.catch(error => { console.log(error.response.data) });
-    }, [reload]);
+    }
 
     function storyNewHabit() {
         const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
@@ -41,8 +44,8 @@ function Habits() {
         const promise = axios.post(url, body, config);
 
         promise.then(response => {
+            fetchTasks();
             console.log(response.data);
-            setReload(!reload);
             setHabit({ name: '', days: [] });
             setShowInput(false);
         });
@@ -50,7 +53,6 @@ function Habits() {
     };
 
     function cancel() {
-        setHabit({ name: '', days: [] });
         setShowInput(false);
     }
 
@@ -79,7 +81,7 @@ function Habits() {
     function makeHabits() {
         if (habits.length !== 0) {
             return (
-                habits.map(({id,name,days}) => <Task id={id} name={name} days={days} />));
+                habits.map(({id,name,days}) => <Task key={id} id={id} name={name} days={days} fetchTasks={fetchTasks} />));
         } else { 
             return <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p> 
         }
