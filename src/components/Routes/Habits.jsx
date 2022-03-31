@@ -1,26 +1,29 @@
-import styled from "styled-components";
 import { useState, useEffect, useContext } from 'react';
 import UserContext from "../../providers/UserContext";
 import APIUrlContext from "../../providers/APIUrlContext";
+import styled from "styled-components";
 import axios from "axios";
 import Task from "./Task";
+
+import Header from "./Header";
+import Footer from "./Footer";
 
 function Habits() {
     const [habits, setHabits] = useState([]);
     const [habit, setHabit] = useState({ name: '', days: [] });
     const [showInput, setShowInput] = useState(false);
-    const {url} = useContext(APIUrlContext);
-    const {user} = useContext(UserContext);
-    const {config} = user;
+    const { url } = useContext(APIUrlContext);
+    const { user } = useContext(UserContext);
+    const { config } = user;
     console.log(user);
 
     useEffect(() => {
         fetchTasks();
     }, []);
 
-    function fetchTasks(){
+    function fetchTasks() {
         const promise = axios.get(url, config);
-        promise.then(response => {console.log(response.data); setHabits(response.data) });
+        promise.then(response => { console.log(response.data); setHabits(response.data) });
         promise.catch(error => { console.log(error.response.data) });
     }
 
@@ -69,37 +72,41 @@ function Habits() {
     function makeHabits() {
         if (habits.length !== 0) {
             return (
-                habits.map(({id,name,days}) => <Task key={id} id={id} name={name} days={days} fetchTasks={fetchTasks} />));
-        } else { 
-            return <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p> 
+                habits.map(({ id, name, days }) => <Task key={id} id={id} name={name} days={days} fetchTasks={fetchTasks} />));
+        } else {
+            return <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
         }
     }
 
     return (
-        <Conteiner>
-            <AddHabit>
-                <h2>Meus hábitos</h2>
-                <ion-icon onClick={() => setShowInput(!showInput)} name="add-sharp"></ion-icon>
-            </AddHabit>
-            {createHabit()}
-            {makeHabits()}
-        </Conteiner>
+        <>
+            <Header />
+            <Conteiner>
+                <AddHabit>
+                    <h2>Meus hábitos</h2>
+                    <ion-icon onClick={() => setShowInput(!showInput)} name="add-sharp"></ion-icon>
+                </AddHabit>
+                {createHabit()}
+                {makeHabits()}
+            </Conteiner>
+            <Footer />
+        </>
     );
 }
 
 export default Habits;
 
 
-function Days({ setDays=()=>{}, days }) {
+function Days({ setDays = () => { }, days }) {
     const daysOfWeek = new Map(
         [
-            [1,'S'],
-            [2,'T'],
-            [3,'Q'],
-            [4,'Q'],
-            [5,'S'],
-            [6,'S'],
-            [7,'D']
+            [1, 'S'],
+            [2, 'T'],
+            [3, 'Q'],
+            [4, 'Q'],
+            [5, 'S'],
+            [6, 'S'],
+            [7, 'D']
         ]
     );
 
@@ -130,6 +137,7 @@ const Conteiner = styled.main`
     height: 100%;
 
     padding-top: var(--height-header);
+    padding-bottom: calc(var(--height-header) + 100px);
     padding-inline: var(--padding-inline);
     background-color: var(--backgroud-main);
 

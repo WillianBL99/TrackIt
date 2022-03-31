@@ -47,6 +47,8 @@ const Conteiner = styled.footer`
     right: 0;
     z-index: 1;
 
+    box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.25);
+
     div {
         display: flex;
         justify-content: space-between;

@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
-import UserIcon from '../../assets/bob.svg'
-
+import {useContext} from "react";
+import UserContext from "../../providers/UserContext";
 function Header() {
+    const {user} = useContext(UserContext);
+    
     return (
         <HeaderST>
             <Logo>TrackIt</Logo>
-            <img src={UserIcon} alt="Usuário" />
+            <img src={user.image} alt="Usuário" />
         </HeaderST>
     );
 }
@@ -30,8 +32,13 @@ const HeaderST = styled.header`
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
 
     img {
-        height: 70%;
+        width: 3.5rem;
+        height: 3.5rem;
+        object-fit: cover;
+        object-position: center;
+
         margin-right: 15px;
+        border-radius: 50%;
     }
 `;
 
