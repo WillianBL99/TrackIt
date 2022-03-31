@@ -3,10 +3,25 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 
 function Habits() {
-
+    const [reload, setReload] = useState(false);
     const [habits, setHabits] = useState([]);
-    const [habit, setHabit] = useState({ name: 'Programar', days: [1] });
+    const [habit, setHabit] = useState({ name: '', days: [] });
     const [showInput, setShowInput] = useState(false);
+
+    useEffect(() => {
+        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
+        const { token } = JSON.parse(localStorage.getItem('userInfo'));
+
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        };
+
+        const promise = axios.get(url, config);
+        promise.then(response => {console.log(response.data); setHabits(response.data) });
+        promise.catch(error => { console.log(error.response.data) });
+    }, [reload]);
 
     function storyNewHabit() {
         const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
@@ -26,8 +41,8 @@ function Habits() {
 
         promise.then(response => {
             console.log(response.data);
-            setHabits(response.data);
-            setHabit({name: '', days: []});
+            setReload(!reload);
+            setHabit({ name: '', days: [] });
             setShowInput(false);
         });
         promise.catch(error => console.log(error.response));
@@ -43,13 +58,13 @@ function Habits() {
             return (
                 <article>
                     <input
-                        onChange={({target}) => setHabit({ ...habit, name: target.value }) }
+                        onChange={({ target }) => setHabit({ ...habit, name: target.value })}
                         value={habit.name}
                         type="text"
                         placeholder="nome do hábito"
                     />
                     <div className="weekdays">
-                        <Days setDays={(days) => setHabit({...habit, days: days })} days={habit.days} />
+                        <Days setDays={(days) => setHabit({ ...habit, days: days })} days={habit.days} />
                     </div>
                     <div className="options">
                         <button onClick={cancel} >Cancelar</button>
@@ -60,6 +75,22 @@ function Habits() {
         } else { return <></> }
     }
 
+    function makeHabits() {
+        if (habits.length !== 0) {
+            return (
+                habits.map(habit => {
+                    return (<article>
+                        <p>{habit.name}</p>
+                        <div className="weekdays">
+                            <Days days={habit.days} />
+                        </div>
+                    </article>)
+                }));
+        } else { 
+            return <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p> 
+        }
+    }
+
     return (
         <Conteiner>
             <AddHabit>
@@ -67,7 +98,7 @@ function Habits() {
                 <ion-icon onClick={() => setShowInput(!showInput)} name="add-sharp"></ion-icon>
             </AddHabit>
             {createHabit()}
-            <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+            {makeHabits()}
         </Conteiner>
     );
 }
@@ -75,7 +106,7 @@ function Habits() {
 export default Habits;
 
 
-function Days({ setDays, days }) {
+function Days({ setDays=()=>{}, days }) {
     const daysOfWeek = new Map();
     daysOfWeek.set(1, 'S');
     daysOfWeek.set(2, 'T');
@@ -106,6 +137,8 @@ const Conteiner = styled.main`
     display: flex;
     flex-direction: column;
 
+    overflow-y: scroll;
+
     width: 100%;
     height: 100%;
 
@@ -128,6 +161,11 @@ const Conteiner = styled.main`
         border-radius: 10px;
 
         background-color: #fff;
+    }
+
+    article p {
+        margin: 0;
+        margin-bottom: 18px;
     }
 
     article input {
