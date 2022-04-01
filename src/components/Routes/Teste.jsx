@@ -1,64 +1,21 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { 
+    Audio, Bars
 
-import LogoImg from '../../assets/logo.svg'
-import axios from "axios";
+ } from 'react-loader-spinner';
 
+import styled from 'styled-components';
 function Teste() {
-    const [userData, setUserData] = useState({
-        email: "",
-        name: "",
-        image: "",
-        password: ""
-    });
 
-    function login(event) {
-        event.preventDefault();
-        
-        const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
 
-        const promise = axios.post(url, userData);
-        promise.then(response => {console.log(response.data);});
-        promise.catch(error => {console.log(error);});
-    }
+
+
+
 
     return (
         <Conteiner>
-            <Logo src={LogoImg} />
-            <form onSubmit={login} >
-                <input
-                    onChange={e => { setUserData({ ...userData, name: e.target.value }) }}
-                    value={userData.name}
-                    type="name"
-                    placeholder="nome"
-                    required
-                />
-                <input
-                    onChange={e => { setUserData({ ...userData, email: e.target.value }) }}
-                    value={userData.email}
-                    type="email"
-                    placeholder="email"
-                    required
-                />
-                <input
-                    onChange={e => { setUserData({ ...userData, password: e.target.value }) }}
-                    value={userData.password}
-                    type="password"
-                    placeholder="senha"
-                    required
-                />
-                <input
-                    onChange={e => { setUserData({ ...userData, image: e.target.value }) }}
-                    value={userData.image}
-                    type="text"
-                    placeholder="foto"
-                    required>
-
-                </input>
-                <button type="submit">Cadastrar</button>
-            </form>
-            <Link to={'/'}>Já tem uma conta? Faça login!</Link>
+            <Bars color="#00BFFF" height={80} width={80} />
+            <input type="text" placeholder="Digite o nome do hábito" />
+            <button>Adicionar</button>
         </Conteiner>
     );
 }
@@ -76,11 +33,12 @@ const Conteiner = styled.main`
     justify-content: center;
     align-items: center;
 
+    z-index: 5;
+
     width: 100%;
     height: 100%;
 
     padding-inline: var(--padding-inline);
-
     
     form {
         display: flex;
@@ -93,7 +51,7 @@ const Conteiner = styled.main`
     }
 
     form input {
-        height: 3.8rem;
+        height: 3.5rem;
 
         margin-bottom: 10px;
         padding-left: 20px;
@@ -102,23 +60,6 @@ const Conteiner = styled.main`
         
         border: 1px solid #D5D5D5;
         border-radius: 10px;
-    }
-    
-    form input[type="file"] {
-        display: none;
-    }
-
-    form label {
-        height: 3.8rem;
-
-        margin-bottom: 10px;
-
-        font-size: var(--font-size-login);
-        
-        border: 1px solid #D5D5D5;
-        border-radius: 10px;
-
-        color: var(--place-holder);
     }
 
     form button {
@@ -132,6 +73,7 @@ const Conteiner = styled.main`
     }
 
     a {
+        text-align: center;
         font-size: 1.05rem;
         color: var(--color-main);
     }
