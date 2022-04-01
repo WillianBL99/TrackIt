@@ -70,6 +70,7 @@ const Conteiner = styled.article`
     div {
         display: flex;
         flex-direction: column;
+        margin-right: 8px;
     }
 
     div strong {
@@ -90,6 +91,7 @@ const Conteiner = styled.article`
 
     ion-icon {
         width: 4.2rem;
+        min-width: 4.2rem;
         height: 4.2rem;
 
         margin-block: auto;
