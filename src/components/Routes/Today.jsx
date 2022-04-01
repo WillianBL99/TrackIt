@@ -46,13 +46,13 @@ function Today() {
         return <h2>{weekDay}, {day}</h2>;
     }
 
-    function currentState() {        
+    function currentState() {
         const { qtdCompleted, qtdTotal } = tasksState;
-        if(qtdTotal === 0) {
+        if (qtdTotal === 0) {
             return <p>Nenhum hábito concluido ainda</p>
         } else {
             return <p className='completed'>
-                {qtdCompleted*100/qtdTotal}% dos hábitos concluídos
+                {qtdCompleted * 100 / qtdTotal}% dos hábitos concluídos
             </p>
         }
     }
@@ -60,7 +60,7 @@ function Today() {
     function assembleTasks() {
         return tasks.map(task => {
             console.log(task);
-            return <TodayTaskST key={task.id} task={task} />
+            return <TodayTask key={task.id} task={task} />
         });
     }
 
@@ -79,21 +79,40 @@ function Today() {
 
 export default Today;
 
-function TodayTaskST({ task }) {
+function TodayTask({ task }) {
     const { id, name, done, currentSequence, highestSequence } = task;
+    const { url } = useContext(APIUrlContext);
+    const { user } = useContext(UserContext);
+    const { config } = user;
+    console.log(config);
+    const [checked, setChecked] = useState(done);
+
+    function handleChecked() {
+        let promise;
+        console.log(`${url}/${id}/check, ${config}`);
+        if (checked) {
+            promise = axios.post(`${url}/${id}/uncheck`, {}, config);
+        } else {
+            promise = axios.post(`${url}/${id}/check`, {}, config);
+        }
+        promise.then(() => setChecked(!checked));
+        promise.catch(error => console.log(error.response.data));
+    }
+
     return (
-        <TodayTask>
+        <TodayTaskST checked={checked} >
             <div>
                 <strong>{name}</strong>
                 <small>Sequência atual: {currentSequence} dias</small>
-                <small>Seu recorde: {highestSequence} dias</small>
+                <small>Seu recorde: {highestSequence} dias {checked?'true':'false'}</small>
             </div>
             <ion-icon
-                className={done ? 'done' : ''}
-                name="checkmark-outline">
-
+                /* className={checked ? 'done' : ''} */
+                name="checkmark-outline"
+                onClick={handleChecked}
+            >
             </ion-icon>
-        </TodayTask>
+        </TodayTaskST>
     )
 }
 
@@ -125,7 +144,7 @@ const Conteiner = styled.main`
     }
 `
 
-const TodayTask = styled.article`
+const TodayTaskST = styled.article`
     display: flex;
     justify-content: space-between;
 
@@ -157,11 +176,15 @@ const TodayTask = styled.article`
 
         margin-block: auto;
         border-radius: 10px;
-        background-color: var(--color-gray-desabled);
+        background-color: ${props => props.checked ? 'var(--color-green)' : 'var(--color-text-blurred)'};
         color: #fff;
     }
 
-    .done {
+    ion-icon.done {
         background-color: var(--color-green);
+    }
+
+    ion-icon:hover {
+        background-color: var(--color-text-gray);
     }
 `
