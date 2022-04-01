@@ -4,9 +4,11 @@ import styled from "styled-components";
 import { useContext } from "react";
 import APIUrlContext from "../../providers/APIUrlContext";
 import UserContext from "../../providers/UserContext";
+import TasksStateContext from "../../providers/TasksStateContext";
 
 
 function Task({ id, name, days, fetchTasks }) {
+    const {tasksState, setTasksState} = useContext(TasksStateContext);
     const {url} = useContext(APIUrlContext);
     const {user} = useContext(UserContext);
     const {config} = user;
@@ -15,7 +17,10 @@ function Task({ id, name, days, fetchTasks }) {
         if (window.confirm('Deseja realmente excluir essa tarefa?')) {
             
             const promise = axios.delete(`${url}/${id}`, config);
-            promise.then(() => fetchTasks());
+            promise.then(() => {                
+                setTasksState({...tasksState, qtdTotal: tasksState.qtdTotal - 1});
+                fetchTasks()
+            });
             promise.catch(error => console.log(error.response));
         }
     }

@@ -48,7 +48,6 @@ function TodayTask({ task, update }) {
                 <small>Seu recorde: {highestSequence} dias</small>
             </div>
             <ion-icon
-                /* className={checked ? 'done' : ''} */
                 name="checkmark-outline"
                 onClick={handleChecked}
             >

@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import UserContext from "../../providers/UserContext";
 import APIUrlContext from "../../providers/APIUrlContext";
+import TasksStateContext from '../../providers/TasksStateContext';
 import styled from "styled-components";
 import axios from "axios";
 import Task from "./Task";
@@ -12,10 +13,10 @@ function Habits() {
     const [habits, setHabits] = useState([]);
     const [habit, setHabit] = useState({ name: '', days: [] });
     const [showInput, setShowInput] = useState(false);
+    const {tasksState, setTasksState} = useContext(TasksStateContext);
     const { url } = useContext(APIUrlContext);
     const { user } = useContext(UserContext);
     const { config } = user;
-    console.log(user);
 
     useEffect(() => {
         fetchTasks();
@@ -23,22 +24,17 @@ function Habits() {
 
     function fetchTasks() {
         const promise = axios.get(url, config);
-        promise.then(response => { console.log(response.data); setHabits(response.data) });
-        promise.catch(error => { console.log(error.response.data) });
+        promise.then(response => setHabits(response.data));
+        promise.catch(error => console.log(error.response.data));
     }
 
     function storyNewHabit() {
-        const { name, days } = habit;
-        const body = { name, days };
+        const promise = axios.post(url, habit, config);
 
-        console.log(body);
-        const promise = axios.post(url, body, config);
-
-        promise.then(response => {
+        promise.then(() => {
             fetchTasks();
-            console.log(response.data);
-            setHabit({ name: '', days: [] });
             setShowInput(false);
+            setTasksState({...tasksState, qtdTotal: tasksState.qtdTotal + 1});
         });
         promise.catch(error => console.log(error.response));
     };
