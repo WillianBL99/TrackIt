@@ -59,7 +59,7 @@ function Today() {
 
 
     function currentState() {
-        if (qtdTotal === 0) {
+        if (qtdCompleted === 0) {
             return <p>Nenhum hábito concluido ainda</p>
         } else {
             return <p className='completed'>
@@ -114,5 +114,9 @@ const Conteiner = styled.main`
         margin-bottom: 2.8rem;
         font-size: var(--font-size-p);
         color: var(--color-text-blurred);
+    }
+
+    .completed {
+        color: var(--color-green);
     }
 `
