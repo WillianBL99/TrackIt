@@ -18,9 +18,17 @@ function Today() {
         promise.then(response => {
             setTasks(response.data);
         });
-        promise.catch(error => {console.log(error.response.data)});
+        promise.catch(error => { console.log(error.response.data) });
 
     }, []);
+
+    function setCurrentDay() {
+        const dayjs = require('dayjs');
+        const day = dayjs()
+            .locale('pt-br')
+            .format('dddd, DD/MM');
+        return <h2>{day}</h2>;
+    }
 
     function assembleTasks() {
         return tasks.map(task => {
@@ -33,7 +41,7 @@ function Today() {
         <>
             <Header />
             <Conteiner >
-                <h2>Segunda, 31/03</h2>
+                {setCurrentDay()}
                 <p>Nenhum hábito concluido ainda</p>
                 {assembleTasks()}
             </Conteiner>
@@ -44,8 +52,8 @@ function Today() {
 
 export default Today;
 
-function TodayTaskST({task}) {
-    const {id,name,done,currentSequence, highestSequence} = task;
+function TodayTaskST({ task }) {
+    const { id, name, done, currentSequence, highestSequence } = task;
     return (
         <TodayTask>
             <div>
