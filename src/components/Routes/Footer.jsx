@@ -22,7 +22,7 @@ function Footer() {
         <Conteiner>
             <div>
                 <Link to={'/habitos'}>Hábitos</Link>
-                <Link to={''}>Histórico</Link>
+                <Link to={'/historico'}>Histórico</Link>
             </div>
             <div className="circular">
                 <Link to={'/hoje'}> 

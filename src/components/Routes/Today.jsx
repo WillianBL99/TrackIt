@@ -22,10 +22,6 @@ function Today() {
         console.log('renderizando useEffect');
         update();
     }, []);  
-
-    /* useEffect(() => {
-        update();
-    }, [tasksState]); */
     
     function update(){
         console.log('useEffect', tasksState);
