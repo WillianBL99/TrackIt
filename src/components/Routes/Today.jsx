@@ -1,42 +1,53 @@
 import { useState, useContext, useEffect } from 'react';
 import UserContext from '../../providers/UserContext';
+import TasksStateContext from '../../providers/TasksStateContext';
 import APIUrlContext from '../../providers/APIUrlContext';
 import styled from 'styled-components';
 
 import Footer from "./Footer";
+import TodayTask from './TodayTask';
 import Header from "./Header";
 import axios from 'axios';
-import dayjs from 'dayjs';
 
 function Today() {
-    const [tasksState, setTasksState] = useState({ qtdCompleted: 0, qtdTotal: 0 });
+    const { tasksState, setTasksState } = useContext(TasksStateContext);
+    const {qtdCompleted, qtdTotal} = tasksState;
     const [tasks, setTasks] = useState([]);
     const { user } = useContext(UserContext);
     const { url } = useContext(APIUrlContext);
     const { config } = user;
 
+    console.log('renderizando today');
     useEffect(() => {
+        console.log('renderizando useEffect');
+        update();
+    }, []);  
+
+    /* useEffect(() => {
+        update();
+    }, [tasksState]); */
+    
+    function update(){
+        console.log('useEffect', tasksState);
         const promise = axios.get(`${url}/today`, config);
-        promise.then(response => setTasks(response.data));
+        promise.then(response =>{
+            updateTaskState(response.data);
+            setTasks(response.data);
+        }); 
         promise.catch(error => console.log(error.response.data));
+    }
 
-    }, []);
-
-    useEffect(() => {
-        setTasksState({
-            qtdCompleted: tasks.filter(task => task.done).length,
-            qtdTotal: tasks.length
-        });
-    }, [tasks]);
+    function updateTaskState(tasks) {
+        const completed = tasks.filter(task => task.done).length;
+        const total = tasks.length;
+        setTasksState({qtdCompleted: completed, qtdTotal: total});
+    }
 
     function currentDay() {
-        /* require('dayjs/locale/pt-br');
-        dayjs.locale('pt-br');
-        const day = dayjs().format('dddd, DD/MM'); */
         const daysOfWeek = new Map(
-            [[0, 'Domingo'], [1, 'Segunda-feira'],
-            [2, 'Terça-feira'], [3, 'Quarta-feira'],
-            [4, 'Quinta-feira'], [5, 'Sexta-feira'],
+            [[0, 'Domingo'], [1, 'Segunda'],
+            [2, 'Terça'], [3, 'Quarta'],
+            [4, 'Quinta'], [5, 'Sexta'],
             [6, 'Sábado']]
         )
         const dayjs = require('dayjs');
@@ -46,21 +57,20 @@ function Today() {
         return <h2>{weekDay}, {day}</h2>;
     }
 
+
     function currentState() {
-        const { qtdCompleted, qtdTotal } = tasksState;
         if (qtdTotal === 0) {
             return <p>Nenhum hábito concluido ainda</p>
         } else {
             return <p className='completed'>
-                {qtdCompleted * 100 / qtdTotal}% dos hábitos concluídos
+                {(qtdCompleted * 100 / qtdTotal).toFixed(0)}% dos hábitos concluídos
             </p>
         }
     }
 
     function assembleTasks() {
         return tasks.map(task => {
-            console.log(task);
-            return <TodayTask key={task.id} task={task} />
+            return <TodayTask key={task.id} task={task} update={update} />
         });
     }
 
@@ -78,43 +88,6 @@ function Today() {
 }
 
 export default Today;
-
-function TodayTask({ task }) {
-    const { id, name, done, currentSequence, highestSequence } = task;
-    const { url } = useContext(APIUrlContext);
-    const { user } = useContext(UserContext);
-    const { config } = user;
-    console.log(config);
-    const [checked, setChecked] = useState(done);
-
-    function handleChecked() {
-        let promise;
-        console.log(`${url}/${id}/check, ${config}`);
-        if (checked) {
-            promise = axios.post(`${url}/${id}/uncheck`, {}, config);
-        } else {
-            promise = axios.post(`${url}/${id}/check`, {}, config);
-        }
-        promise.then(() => setChecked(!checked));
-        promise.catch(error => console.log(error.response.data));
-    }
-
-    return (
-        <TodayTaskST checked={checked} >
-            <div>
-                <strong>{name}</strong>
-                <small>Sequência atual: {currentSequence} dias</small>
-                <small>Seu recorde: {highestSequence} dias {checked?'true':'false'}</small>
-            </div>
-            <ion-icon
-                /* className={checked ? 'done' : ''} */
-                name="checkmark-outline"
-                onClick={handleChecked}
-            >
-            </ion-icon>
-        </TodayTaskST>
-    )
-}
 
 const Conteiner = styled.main`  
     display: flex;
@@ -141,50 +114,5 @@ const Conteiner = styled.main`
         margin-bottom: 2.8rem;
         font-size: var(--font-size-p);
         color: var(--color-text-blurred);
-    }
-`
-
-const TodayTaskST = styled.article`
-    display: flex;
-    justify-content: space-between;
-
-    margin-bottom: 2.2rem;
-    padding: 18px;
-    border-radius: 10px;
-    background-color: #fff;
-
-    div {
-        display: flex;
-        flex-direction: column;
-    }
-
-    div strong {
-        margin-bottom: 8px;
-        font-size: var(--font-size-strong);
-        color: var(--color-text-gray);
-    }
-    
-    div small {
-        margin-top: 4px;
-        font-size: var(--font-size-small);
-        color: var(--color-text-blurred);
-    }
-
-    ion-icon {
-        width: 4.2rem;
-        height: 4.2rem;
-
-        margin-block: auto;
-        border-radius: 10px;
-        background-color: ${props => props.checked ? 'var(--color-green)' : 'var(--color-text-blurred)'};
-        color: #fff;
-    }
-
-    ion-icon.done {
-        background-color: var(--color-green);
-    }
-
-    ion-icon:hover {
-        background-color: var(--color-text-gray);
     }
 `
