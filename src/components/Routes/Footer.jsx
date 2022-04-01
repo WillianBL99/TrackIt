@@ -1,12 +1,15 @@
-import styled from "styled-components"
-
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import { Link } from "react-router-dom";
 import "react-circular-progressbar/dist/styles.css";
 
-function Footer() {
+import {useContext} from "react";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { Link } from "react-router-dom";
 
-    const percentage = 80;
+import TasksStateContext from "../../providers/TasksStateContext";
+import styled from "styled-components"
+
+function Footer() {
+    const { tasksState } = useContext(TasksStateContext);
+    const { qtdCompleted, qtdTotal } = tasksState;
 
     const CircularProgressbarStyle = buildStyles({
         textColor: '#fff',
@@ -24,7 +27,8 @@ function Footer() {
             <div className="circular">
                 <Link to={'/hoje'}> 
                     <CircularProgressbar
-                        value={percentage}
+                        value={qtdCompleted}
+                        maxValue={qtdTotal}
                         text={`Hoje`}
                         strokeWidth={9}
                         styles={CircularProgressbarStyle}
