@@ -1,7 +1,10 @@
-import { useState, useEffect, useContext } from 'react';
 import UserContext from "../../providers/UserContext";
 import APIUrlContext from "../../providers/APIUrlContext";
 import TasksStateContext from '../../providers/TasksStateContext';
+
+import { useState, useEffect, useContext } from 'react';
+import { ThreeDots } from "react-loader-spinner";
+
 import styled from "styled-components";
 import axios from "axios";
 import Task from "./Task";
@@ -10,13 +13,15 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 function Habits() {
-    const [habits, setHabits] = useState([]);
-    const [habit, setHabit] = useState({ name: '', days: [] });
-    const [showInput, setShowInput] = useState(false);
-    const {tasksState, setTasksState} = useContext(TasksStateContext);
+    const { tasksState, setTasksState } = useContext(TasksStateContext);
     const { url } = useContext(APIUrlContext);
     const { user } = useContext(UserContext);
     const { config } = user;
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [habits, setHabits] = useState([]);
+    const [habit, setHabit] = useState({ name: '', days: [] });
+    const [showInputHabit, setShowInputHabit] = useState(false);
 
     useEffect(() => {
         fetchTasks();
@@ -29,22 +34,35 @@ function Habits() {
     }
 
     function storyNewHabit() {
+        setIsLoading(true);
         const promise = axios.post(url, habit, config);
 
         promise.then(() => {
+            setIsLoading(false);
             fetchTasks();
-            setShowInput(false);
-            setTasksState({...tasksState, qtdTotal: tasksState.qtdTotal + 1});
+            setShowInputHabit(false);
+            setTasksState({ ...tasksState, qtdTotal: tasksState.qtdTotal + 1 });
         });
-        promise.catch(error => console.log(error.response));
+        promise.catch(error => {
+            setIsLoading(false);
+            console.log(error.response);
+            alert(error.response.data.details);
+        });
     };
 
     function cancel() {
-        setShowInput(false);
+        setShowInputHabit(false);
+    }
+
+    function buttonSave() {
+        if (isLoading) {
+            return <button disabled><ThreeDots color="#fff" height={'0.5rem'} width={'100%'} /></button>
+        }
+        return <button type='submit' onClick={storyNewHabit} >Salvar</button>
     }
 
     function createHabit() {
-        if (showInput) {
+        if (showInputHabit) {
             return (
                 <CreatTask>
                     <input
@@ -52,13 +70,16 @@ function Habits() {
                         value={habit.name}
                         type="text"
                         placeholder="nome do hábito"
+                        disabled={isLoading}
                     />
                     <div className="weekdays">
-                        <Days setDays={(days) => setHabit({ ...habit, days: days })} days={habit.days} />
+                        <Days setDays={(days) => setHabit({ ...habit, days: days })} days={habit.days} disabled={isLoading} />
                     </div>
                     <div className="options">
-                        <button onClick={cancel} >Cancelar</button>
-                        <button onClick={storyNewHabit} >Salvar</button>
+                        <button onClick={cancel} disabled={isLoading} >
+                            Cancelar
+                        </button>
+                        {buttonSave()}
                     </div>
                 </CreatTask>
             );
@@ -80,7 +101,7 @@ function Habits() {
             <Conteiner>
                 <AddHabit>
                     <h2>Meus hábitos</h2>
-                    <ion-icon onClick={() => setShowInput(!showInput)} name="add-sharp"></ion-icon>
+                    <ion-icon onClick={() => setShowInputHabit(!showInputHabit)} name="add-sharp"></ion-icon>
                 </AddHabit>
                 {createHabit()}
                 {makeHabits()}
@@ -93,7 +114,7 @@ function Habits() {
 export default Habits;
 
 
-function Days({ setDays = () => { }, days }) {
+function Days({setDays, days, disabled }) {
     const daysOfWeek = new Map(
         [
             [1, 'S'],
@@ -115,7 +136,7 @@ function Days({ setDays = () => { }, days }) {
             <span
                 key={day}
                 className={days.includes(day) ? 'checked' : ''}
-                onClick={() => handleCheck(day)}
+                onClick={() => disabled?{}:handleCheck(day)}
             >
                 {daysOfWeek.get(day)}
             </span>
@@ -237,6 +258,8 @@ const CreatTask = styled.article`
 
     button {
         height: 3.2rem;
+        width: auto;
+        min-width: 6.6rem;
 
         padding-inline: 22px;
         font-size: var(--font-size-p);
@@ -250,5 +273,9 @@ const CreatTask = styled.article`
     button:first-child {
         background: none;
         color: var(--color-main);
+    }
+
+    button:disabled{
+        cursor: progress;
     }
 `
