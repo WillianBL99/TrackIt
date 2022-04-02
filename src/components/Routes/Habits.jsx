@@ -35,8 +35,14 @@ function Habits() {
 
     function storyNewHabit() {
         setIsLoading(true);
-        const promise = axios.post(url, habit, config);
 
+        if(habit.days.length === 0) {
+            setIsLoading(false);
+            alert('Selecione pelo menos um dia da semana');
+            return;
+        }
+        
+        const promise = axios.post(url, habit, config);
         promise.then(() => {
             setIsLoading(false);
             fetchTasks();
