@@ -1,5 +1,6 @@
-import { useState, useEffect,useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { ThreeDots } from 'react-loader-spinner'
 import styled from "styled-components";
 import axios from "axios";
 
@@ -7,16 +8,17 @@ import LogoImg from '../../assets/logo.svg'
 import UserContext from "../../providers/UserContext";
 
 function Login() {
-    const {user, setUser} = useContext(UserContext);
+    const [isLoading, setIsLoading] = useState(false);
+    const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
     const { state } = useLocation();
     const [userData, setUserData] = useState({ email: '', password: '' });
 
-    function storeLogin(info){
+    function storeLogin(info) {
         localStorage.setItem('userInfo', JSON.stringify(info));
-        const {token,image,name,email} = info;
+        const { token, image, name, email } = info;
         setUser({
-            config: {headers: {Authorization: `Bearer ${token}`}},
+            config: { headers: { Authorization: `Bearer ${token}` } },
             image,
             name,
             email
@@ -25,16 +27,23 @@ function Login() {
 
     function login(event) {
         event.preventDefault();
+        setIsLoading(true);
         const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
-
         const promise = axios.post(url, userData);
 
         promise.then(response => {
+            setIsLoading(false);
             storeLogin(response.data);
             navigate('/hoje');
         });
-
         promise.catch(() => alert('Usuário ou senha inválidos'));
+    }
+
+    function buttonLogin() {
+        if (isLoading) {
+            return <button disabled><ThreeDots color="#fff" height={'1.8rem'} width={'100%'} /></button>
+        }
+        return <button>Entrar</button>
     }
 
     useEffect(() => {
@@ -44,7 +53,7 @@ function Login() {
     }, [state]);
 
     return (
-        <Conteiner>
+        <Conteiner disabled={isLoading} >
             <Logo src={LogoImg} />
             <form onSubmit={login} >
                 <input
@@ -52,22 +61,29 @@ function Login() {
                     value={userData.email} type="email"
                     placeholder="email"
                     required
+                    disabled={isLoading}
                 />
-                <input 
-                    onChange={e => {setUserData({ ...userData, password: e.target.value }) }}
-                    value={userData.password} 
-                    type="password" 
-                    placeholder="senha" 
-                    required 
+                <input
+                    onChange={e => { setUserData({ ...userData, password: e.target.value }) }}
+                    value={userData.password}
+                    type="password"
+                    placeholder="senha"
+                    required
+                    disabled={isLoading}
+                    background="green"
                 />
-                <button type="submit">Entrar</button>
+                {buttonLogin()}
             </form>
-            <Link to={'/cadastro'}>Não tem uma conta? Cadastre-se!</Link>
+            <Link className="link" to={isLoading ? '' : '/cadastro'}>
+                Não tem uma conta? Cadastre-se!
+            </Link>
         </Conteiner>
     );
 }
 
 export default Login;
+
+
 
 const Logo = styled.img`
     width: 10rem;
@@ -75,6 +91,11 @@ const Logo = styled.img`
 `
 
 const Conteiner = styled.main`
+    --input-background: #fff;
+    --input-color: var(--color-text-gray);
+    --input-background-disabled: var(--color-text-blurred);
+    --input-color-disabled: var(--color-text-gray);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -104,9 +125,33 @@ const Conteiner = styled.main`
         padding-left: 20px;
 
         font-size: var(--font-size-login);
-        
         border: 1px solid #D5D5D5;
         border-radius: 10px;
+        background: var(--input-background);
+        color: var(--input-color);
+        
+    }
+
+    input:hover {
+        border: 1px solid #808080;
+    }
+
+    input:disabled{
+        background: var(--input-background-disabled);
+        color: var(--input-color-disabled);
+        cursor: progress;
+    }
+
+    input:-webkit-autofill {
+        font-size: var(--font-size-login);
+        background: var(--input-background);
+        color: var(--input-color);
+    }
+
+    input:-webkit-autofill {
+        font-size: var(--font-size-login);
+        background: var(--input-background);
+        color: var(--input-color);
     }
 
     form button {
@@ -119,9 +164,21 @@ const Conteiner = styled.main`
         border-radius: 10px;
     }
 
+    button:hover{
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    }
+
+    button:disabled{
+        cursor: progress;
+    }
+
     a {
         text-align: center;
         font-size: 1.05rem;
         color: var(--color-main);
+    }
+
+    .link:disabled{
+        cursor: progress;
     }
 `
