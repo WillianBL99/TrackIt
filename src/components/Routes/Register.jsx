@@ -20,14 +20,18 @@ function Register() {
 
     function register(event) {
         event.preventDefault();        
+        setIsLoading(true);
         const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
 
         const promise = axios.post(url, userData);
-        promise.then(response => {
-            console.log(response.data);
+        promise.then(() => {
+            setIsLoading(false);
             navigate('/', {state: {password: userData.password, email: userData.email }});
         });
-        promise.catch(error => {console.log(error);});
+        promise.catch(error => {
+            alert(error.response.data.message + '\nTente novamente');
+            setIsLoading(false);
+        });
     }
 
     function buttonLogin() {

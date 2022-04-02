@@ -36,7 +36,10 @@ function Login() {
             storeLogin(response.data);
             navigate('/hoje');
         });
-        promise.catch(() => alert('Usuário ou senha inválidos'));
+        promise.catch(() => {
+            alert('Usuário ou senha inválidos')
+            setIsLoading(false);
+        });
     }
 
     function buttonLogin() {
