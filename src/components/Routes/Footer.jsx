@@ -14,7 +14,7 @@ function Footer() {
     const CircularProgressbarStyle = buildStyles({
         textColor: '#fff',
         pathColor: '#fff',
-        trailColor: 'none',
+        trailColor: '#88ccfd',
         textSize: '1.5rem',
     });
 
@@ -91,6 +91,12 @@ const Conteiner = styled.footer`
         margin-bottom: 10px;
 
         background-color: var(--color-main);
+        border: 1px solid #0f64a1;
+        background-image: linear-gradient(-180deg, #52B6FF 0%, #44a9f1 100%);
+        box-shadow: 0 0.5rem 1.25rem 0 #3489c5,
+                                0 -0.25rem 1.5rem #155d91 inset,
+                                0 0.75rem 0.5rem #738c9e inset,
+                                0 0.25rem 0.5rem 0 #2f56aa inset;
     }
 
     
