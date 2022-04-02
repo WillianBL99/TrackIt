@@ -1,13 +1,15 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { ThreeDots } from 'react-loader-spinner';
 
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import axios from 'axios';
 
 import LogoImg from '../../assets/logo.svg'
 
 function Register() {
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [userData, setUserData] = useState({
         email: "",
@@ -26,6 +28,13 @@ function Register() {
             navigate('/', {state: {password: userData.password, email: userData.email }});
         });
         promise.catch(error => {console.log(error);});
+    }
+
+    function buttonLogin() {
+        if (isLoading) {
+            return <button disabled><ThreeDots color="#fff" height={'1.8rem'} width={'100%'} /></button>
+        }
+        return <button type='submit'>Cadastrar</button>
     }
 
     return (
@@ -61,9 +70,11 @@ function Register() {
                     required>
 
                 </input>
-                <button type="submit">Cadastrar</button>
+                {buttonLogin()}
             </form>
-            <Link to={'/'}>Já tem uma conta? Faça login!</Link>
+            <Link className="link" to={isLoading ? '' : '/'}>
+                Já tem uma conta? Faça login!
+            </Link>
         </Conteiner>
     );
 }
@@ -76,12 +87,15 @@ const Logo = styled.img`
 `
 
 const Conteiner = styled.main`
+    --input-background: #fff;
+    --input-color: var(--color-text-gray);
+    --input-background-disabled: var(--color-text-blurred);
+    --input-color-disabled: var(--color-text-gray);
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    z-index: 5;
 
     width: 100%;
     height: 100%;
@@ -106,26 +120,21 @@ const Conteiner = styled.main`
         padding-left: 20px;
 
         font-size: var(--font-size-login);
-        
         border: 1px solid #D5D5D5;
         border-radius: 10px;
+        background: var(--input-background);
+        color: var(--input-color);
     }
     
-    form input[type="file"] {
-        display: none;
+
+    input:hover {
+        border: 1px solid #808080;
     }
 
-    form label {
-        height: 3.8rem;
-
-        margin-bottom: 10px;
-
-        font-size: var(--font-size-login);
-        
-        border: 1px solid #D5D5D5;
-        border-radius: 10px;
-
-        color: var(--place-holder);
+    input:disabled{
+        background: var(--input-background-disabled);
+        color: var(--input-color-disabled);
+        cursor: progress;
     }
 
     form button {
@@ -138,8 +147,17 @@ const Conteiner = styled.main`
         border-radius: 10px;
     }
 
-    a {
-        font-size: 1.05rem;
-        color: var(--color-main);
+    button:hover{
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
     }
+
+    button:disabled{
+        cursor: progress;
+    }
+
+a {
+    text-align: center;
+    font-size: 1.05rem;
+    color: var(--color-main);
+}
 `

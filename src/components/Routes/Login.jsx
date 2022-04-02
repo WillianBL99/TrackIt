@@ -43,7 +43,7 @@ function Login() {
         if (isLoading) {
             return <button disabled><ThreeDots color="#fff" height={'1.8rem'} width={'100%'} /></button>
         }
-        return <button>Entrar</button>
+        return <button type='submit'>Entrar</button>
     }
 
     useEffect(() => {
@@ -100,8 +100,6 @@ const Conteiner = styled.main`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    z-index: 5;
 
     width: 100%;
     height: 100%;
@@ -176,9 +174,5 @@ const Conteiner = styled.main`
         text-align: center;
         font-size: 1.05rem;
         color: var(--color-main);
-    }
-
-    .link:disabled{
-        cursor: progress;
     }
 `
