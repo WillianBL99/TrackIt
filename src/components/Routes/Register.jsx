@@ -160,8 +160,10 @@ const Conteiner = styled.main`
     }
 
 a {
+    cursor: ${props => props.isLoading ? 'progress' : 'pointer'};
     text-align: center;
     font-size: 1.05rem;
+    text-decoration: underline;
     color: var(--color-main);
 }
 `
