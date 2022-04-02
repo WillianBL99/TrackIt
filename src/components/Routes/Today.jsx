@@ -1,21 +1,24 @@
-import { useState, useContext, useEffect } from 'react';
 import UserContext from '../../providers/UserContext';
 import TasksStateContext from '../../providers/TasksStateContext';
 import APIUrlContext from '../../providers/APIUrlContext';
+
+import { useState, useContext, useEffect } from 'react';
+
 import styled from 'styled-components';
+import axios from 'axios';
 
 import Footer from "./Footer";
 import TodayTask from './TodayTask';
 import Header from "./Header";
-import axios from 'axios';
 
 function Today() {
-    const { tasksState, setTasksState } = useContext(TasksStateContext);
-    const {qtdCompleted, qtdTotal} = tasksState;
     const [tasks, setTasks] = useState([]);
     const { user } = useContext(UserContext);
     const { url } = useContext(APIUrlContext);
     const { config } = user;
+    
+    const { tasksState, setTasksState } = useContext(TasksStateContext);
+    const {qtdCompleted, qtdTotal} = tasksState;
 
     console.log('renderizando today');
     useEffect(() => {

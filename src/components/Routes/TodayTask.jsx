@@ -1,23 +1,23 @@
-import { useContext } from "react";
-import styled from "styled-components";
-import { useState} from "react";
-import axios from "axios";
-
 import TasksStateContext from "../../providers/TasksStateContext";
 import APIUrlContext from "../../providers/APIUrlContext";
 import UserContext from "../../providers/UserContext";
 
+import { useContext } from "react";
+import { useState} from "react";
+
+import styled from "styled-components";
+import axios from "axios";
+
+
 
 function TodayTask({ task, update }) {
-
-    const { id, name, done, currentSequence, highestSequence } = task;
-
-    const {tasksState, setTasksState} = useContext(TasksStateContext);
-    const {qtdCompleted, qtdTotal} = tasksState;
-
     const { url } = useContext(APIUrlContext);
     const { user } = useContext(UserContext);
     const { config } = user;
+
+    const { id, name, done, currentSequence, highestSequence } = task;
+    const {tasksState, setTasksState} = useContext(TasksStateContext);
+    const {qtdCompleted, qtdTotal} = tasksState;
 
     const [checked, setChecked] = useState(done);
 
@@ -40,12 +40,14 @@ function TodayTask({ task, update }) {
         promise.catch(error => console.log(error.response.data));
     }
 
+    const highlighted = currentSequence === highestSequence || checked;
+
     return (
-        <Conteiner checked={checked} isRecord={currentSequence >= highestSequence} >
+        <Conteiner checked={checked} isHighlighted={highlighted} >
             <div>
                 <strong>{name}</strong>
-                <small className="first">Sequência atual: {currentSequence} dias</small>
-                <small>Seu recorde: {highestSequence} dias</small>
+                <small>Sequência atual: <span>{currentSequence} dias</span></small>
+                <small>Seu recorde: <span>{highestSequence} dias</span></small>
             </div>
             <ion-icon
                 name="checkmark-outline"
@@ -85,8 +87,8 @@ const Conteiner = styled.article`
         color: var(--color-text-blurred);
     }
 
-    div small.first {
-        color: ${props => props.isRecord ? 'var(--color-green)' : 'var(--color-text-blurred)'};
+    div small span {
+        color: ${props => props.isHighlighted ? 'var(--color-green)' : 'var(--color-text-blurred)'};
     }
 
     ion-icon {

@@ -7,8 +7,8 @@ import { ThreeDots } from "react-loader-spinner";
 
 import styled from "styled-components";
 import axios from "axios";
-import Task from "./Task";
 
+import Task from "./Task";
 import Header from "./Header";
 import Footer from "./Footer";
 
