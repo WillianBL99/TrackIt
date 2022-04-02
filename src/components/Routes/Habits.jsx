@@ -41,17 +41,18 @@ function Habits() {
             alert('Selecione pelo menos um dia da semana');
             return;
         }
-        
+
         const promise = axios.post(url, habit, config);
         promise.then(() => {
             setIsLoading(false);
             fetchTasks();
             setShowInputHabit(false);
-            setTasksState({ ...tasksState, qtdTotal: tasksState.qtdTotal + 1 });
+            setTasksState({ ...tasksState, qtdTotal: tasksState.qtdTotal + 2 });
+            setHabit({ name: '', days: [] });
         });
         promise.catch(error => {
             setIsLoading(false);
-            console.log(error.response);
+            console.error(error.response);
             alert(error.response.data.details);
         });
     };

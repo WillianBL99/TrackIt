@@ -18,10 +18,10 @@ function Task({ id, name, days, fetchTasks }) {
             
             const promise = axios.delete(`${url}/${id}`, config);
             promise.then(() => {                
-                setTasksState({...tasksState, qtdTotal: tasksState.qtdTotal - 1});
+                setTasksState({...tasksState, qtdTotal: tasksState.qtdTotal -2});
                 fetchTasks()
             });
-            promise.catch(error => console.log(error.response));
+            promise.catch(error => console.error(error.response));
         }
     }
 

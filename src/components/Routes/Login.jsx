@@ -15,14 +15,15 @@ function Login() {
     const [userData, setUserData] = useState({ email: '', password: '' });
 
     function storeLogin(info) {
-        localStorage.setItem('userInfo', JSON.stringify(info));
         const { token, image, name, email } = info;
-        setUser({
+        const userInfo = {
             config: { headers: { Authorization: `Bearer ${token}` } },
             image,
             name,
             email
-        })
+        }
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        setUser(userInfo)
     }
 
     function login(event) {

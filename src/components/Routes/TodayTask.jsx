@@ -3,7 +3,7 @@ import APIUrlContext from "../../providers/APIUrlContext";
 import UserContext from "../../providers/UserContext";
 
 import { useContext } from "react";
-import { useState} from "react";
+import { useState } from "react";
 
 import styled from "styled-components";
 import axios from "axios";
@@ -16,28 +16,24 @@ function TodayTask({ task, update }) {
     const { config } = user;
 
     const { id, name, done, currentSequence, highestSequence } = task;
-    const {tasksState, setTasksState} = useContext(TasksStateContext);
-    const {qtdCompleted, qtdTotal} = tasksState;
+    const { tasksState, setTasksState } = useContext(TasksStateContext);
+    const { qtdCompleted, qtdTotal } = tasksState;
 
     const [checked, setChecked] = useState(done);
 
     function handleChecked() {
-        let qtd = 0;
         let promise;
-        if (checked) {
+        if (checked)
             promise = axios.post(`${url}/${id}/uncheck`, {}, config);
-            qtd -= 1;
-        } else {
+        else
             promise = axios.post(`${url}/${id}/check`, {}, config);
-            qtd += 1;
-        }
+
         promise.then(() => {
-            console.log(qtdCompleted, qtdTotal, qtdCompleted+qtd);
-            setTasksState({qtdCompleted: qtdCompleted + qtd, qtdTotal});
+            setTasksState({ qtdCompleted: qtdCompleted, qtdTotal });
             setChecked(!checked);
             update();
         });
-        promise.catch(error => console.log(error.response.data));
+        promise.catch(error => console.error(error.response.data));
     }
 
     const highlighted = currentSequence === highestSequence || checked;

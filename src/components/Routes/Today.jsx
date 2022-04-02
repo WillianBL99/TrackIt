@@ -16,30 +16,29 @@ function Today() {
     const { user } = useContext(UserContext);
     const { url } = useContext(APIUrlContext);
     const { config } = user;
-    
-    const { tasksState, setTasksState } = useContext(TasksStateContext);
-    const {qtdCompleted, qtdTotal} = tasksState;
 
-    console.log('renderizando today');
+    const { tasksState, setTasksState } = useContext(TasksStateContext);
+    const { qtdCompleted, qtdTotal } = tasksState;
+
     useEffect(() => {
-        console.log('renderizando useEffect');
         update();
-    }, []);  
-    
-    function update(){
-        console.log('useEffect', tasksState);
+    }, []);
+
+    function update() {
         const promise = axios.get(`${url}/today`, config);
-        promise.then(response =>{
+        promise.then(response => {
             updateTaskState(response.data);
             setTasks(response.data);
-        }); 
-        promise.catch(error => console.log(error.response.data));
+        });
+        promise.catch(error => console.error(error.response.data));
     }
 
     function updateTaskState(tasks) {
         const completed = tasks.filter(task => task.done).length;
         const total = tasks.length;
-        setTasksState({qtdCompleted: completed, qtdTotal: total});
+        setTasksState({ qtdCompleted: completed, qtdTotal: total });
+        localStorage.setItem('tasksState',
+            JSON.stringify({ qtdCompleted: completed, qtdTotal: total }));
     }
 
     function currentDay() {
