@@ -19,7 +19,7 @@ function Footer() {
     });
 
     return (
-        <Conteiner>
+        <Conteiner completed={qtdCompleted ===  qtdTotal} >
             <div>
                 <Link to={'/habitos'}>Hábitos</Link>
                 <Link to={'/historico'}>Histórico</Link>
@@ -74,6 +74,21 @@ const Conteiner = styled.footer`
         color: var(--color-main);    
         background-color: #fff;
     }
+    // tradução de incompleto  em ingluês:  
+    --border-completed: #2270a8;
+    --border-incompleted: #507a19;
+    --bacground-shadow-completed: 
+                0 0.3rem 1.2rem -5px #000000,
+                0 -0.25rem 1.5rem #618a2c inset,
+                0 0.75rem 0.5rem #8FC549 inset,
+                0 0.25rem 0.5rem 0 #638d2c inset;
+    --bacground-shadow-incompleted: 
+                0 0.3rem 1.2rem -5px #000000,
+                0 -0.25rem 1.5rem #2270a8 inset,
+                0 0.75rem 0.5rem #2883c4 inset,
+                0 0.25rem 0.5rem 0 #2883c4 inset;
+    --bacground-image-completed: linear-gradient(-180deg, #a9df62 0%, #5c8527 100%);
+    --bacground-image-incompleted: linear-gradient(-180deg, #52B6FF 0%, #2883c4 100%);
 
     .circular {
         display: flex;
@@ -91,13 +106,21 @@ const Conteiner = styled.footer`
         margin-bottom: 10px;
 
         background-color: var(--color-main);
-        border: 1px solid #2270a8;
-        background-image: linear-gradient(-180deg, #52B6FF 0%, #2883c4 100%);
-        box-shadow: 
-                0 0.3rem 1.2rem -5px #000000,
-                0 -0.25rem 1.5rem #2270a8 inset,
-                0 0.75rem 0.5rem #2883c4 inset,
-                0 0.25rem 0.5rem 0 #2883c4 inset;
+        border: ${
+            props => props.completed ?
+                `1px solid var(--border-completed)` :
+                `1px solid var(--border-incompleted)`
+        };
+        background-image: ${
+            props => props.completed ?
+                `var(--bacground-image-completed)` :
+                `var(--bacground-image-incompleted)`
+        };
+        box-shadow: ${
+            props => props.completed ? 
+                'var(--bacground-shadow-completed)' :
+                'var(--bacground-shadow-incompleted)'
+        };
     }
 
     
