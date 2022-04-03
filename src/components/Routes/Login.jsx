@@ -13,12 +13,22 @@ function Login() {
     const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
     const { state } = useLocation();
-    const [userData, setUserData] = useState({ email: '', password: '' });
+    const [userData, setUserData] = useState(persistLogin);
 
-    if (localStorage.getItem('userInfo')) {
+    autoLogin();
+
+    function autoLogin(){
+        const { email, password} = JSON.parse(
+            localStorage.getItem('userInfo')
+        )
+        if (email && password) {
+            handleLogin({ email, password });
+        }
+    }
+
+    function persistLogin() {
         const { email, password } = JSON.parse(localStorage.getItem('userInfo'));
-        if (!(userData.email && userData.password)) setUserData({ email, password });
-        handleLogin({ email, password });
+        return { email, password };
     }
 
     function storeLogin(info) {
