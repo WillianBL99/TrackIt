@@ -124,13 +124,13 @@ export default Habits;
 function Days({setDays, days, disabled }) {
     const daysOfWeek = new Map(
         [
+            [0, 'D'],
             [1, 'S'],
             [2, 'T'],
             [3, 'Q'],
             [4, 'Q'],
             [5, 'S'],
             [6, 'S'],
-            [7, 'D']
         ]
     );
 

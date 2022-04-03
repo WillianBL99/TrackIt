@@ -13,13 +13,13 @@ function Footer() {
 
     const CircularProgressbarStyle = buildStyles({
         textColor: '#fff',
-        pathColor: '#fff',
-        trailColor: '#88ccfd',
+        pathColor: '#dfdfdf',
+        trailColor: '#52ace0',
         textSize: '1.5rem',
     });
 
     return (
-        <Conteiner completed={qtdCompleted ===  qtdTotal} >
+        <Conteiner completed={qtdCompleted ===  qtdTotal && qtdTotal !== 0} >
             <div>
                 <Link to={'/habitos'}>Hábitos</Link>
                 <Link to={'/historico'}>Histórico</Link>
@@ -28,7 +28,7 @@ function Footer() {
                 <Link to={'/hoje'}> 
                     <CircularProgressbar
                         value={qtdCompleted}
-                        maxValue={qtdTotal}
+                        maxValue={qtdTotal?qtdTotal:100}
                         text={`Hoje`}
                         strokeWidth={9}
                         styles={CircularProgressbarStyle}
