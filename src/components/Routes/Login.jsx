@@ -18,19 +18,22 @@ function Login() {
     autoLogin();
 
     function autoLogin(){
-        const { email, password} = JSON.parse(
-            localStorage.getItem('userInfo')
-        )
-        if (email && password) {
-            handleLogin({ email, password });
-        } else {
-            localStorage.removeItem('userInfo');
+        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if(userInfo){
+            if(userInfo.email && userInfo.password){
+                handleLogin({email: userInfo.email, password: userInfo.password});
+            }
         }
     }
 
     function persistLogin() {
-        const { email, password } = JSON.parse(localStorage.getItem('userInfo'));
-        return { email, password };
+        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        if(userInfo){
+            if(userInfo.email && userInfo.password){
+                return {email: userInfo.email, password: userInfo.password};
+            }
+        }
+        return {email: "", password: ""};
     }
 
     function storeLogin(info) {
