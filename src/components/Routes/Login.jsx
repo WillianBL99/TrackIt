@@ -23,6 +23,8 @@ function Login() {
         )
         if (email && password) {
             handleLogin({ email, password });
+        } else {
+            localStorage.removeItem('userInfo');
         }
     }
 
