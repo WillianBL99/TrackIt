@@ -3,8 +3,13 @@ import styled from 'styled-components';
 
 
 const CalendarStyle = styled.div`
+    
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
     .react-calendar { 
-        max-width: 100%;
+        width: 100%;
         background-color: #fff;
         color: var(--color-main);
         border-radius: 8px;
@@ -74,16 +79,22 @@ const CalendarStyle = styled.div`
     .react-calendar__tile--hasActive:enabled:focus {
         background: #f8f8fa;
     }
+
+
+
     .react-calendar__tile--active abbr[arial-label] {
-        background: var(--color-header);
-        position: absolute;
-        z-index: 10;
         margin: auto;
         font-weight: bold;
         color: white;
+        
     }
+
+
     .react-calendar__tile--active:enabled:hover,
-    .react-calendar__tile--active:enabled:focus {
+    .react-calendar__tile--active:enabled:focus { 
+        display: flex;
+        justify-content: center;
+        align-items: center;
         max-width: 2.5rem;
         min-width: 2.5rem;
         height: 2.5rem;
@@ -93,10 +104,10 @@ const CalendarStyle = styled.div`
         color: white;
     }
     
-    .react-calendar__tile {
+    button.react-calendar__tile {
         background: #fff;
-        width: 3rem;
-        height: 3rem;
+        width: 3.5rem;
+        height: 3.5rem;
     }
     button.react-calendar__tile--now {
         background: #ffff76;
@@ -158,5 +169,15 @@ const CalendarStyle = styled.div`
     .react-calendar__month-view__days__day--weekend p.habit.habit-not-doned {
         color: #2e0a0a;
     }
+
+    .react-calendar__tile--active P.habit-doned {
+        background: #9ebb90;
+        font-weight: bold;
+    }
+    .react-calendar__tile--active P.habit-not-doned {
+        background: #eb7c7c;
+        font-weight: bold;
+    }
+
     `
     export default CalendarStyle;

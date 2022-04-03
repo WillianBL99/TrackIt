@@ -104,10 +104,4 @@ const Conteiner = styled.main`
         font-size: var(--font-size-p);
         color: var(--color-text-grey);
     }
-
-    div.calendar {
-        width: 85vw;
-        display: flex;
-        justify-content: center;
-    }
 `
