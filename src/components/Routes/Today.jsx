@@ -28,6 +28,7 @@ function Today() {
         const promise = axios.get(`${url}/today`, config);
         promise.then(response => {
             updateTaskState(response.data);
+            console.log(response.data);
             setTasks(response.data);
         });
         promise.catch(error => console.error(error.response.data));

@@ -74,9 +74,11 @@ const CalendarStyle = styled.div`
     .react-calendar__tile--hasActive:enabled:focus {
         background: #f8f8fa;
     }
-    .react-calendar__tile--active {
+    .react-calendar__tile--active abbr[arial-label] {
         background: var(--color-header);
-        border-radius: 6px;
+        position: absolute;
+        z-index: 10;
+        margin: auto;
         font-weight: bold;
         color: white;
     }
@@ -91,7 +93,7 @@ const CalendarStyle = styled.div`
         color: white;
     }
     
-    button.react-calendar__tile {
+    .react-calendar__tile {
         background: #fff;
         width: 3rem;
         height: 3rem;
@@ -129,7 +131,7 @@ const CalendarStyle = styled.div`
         color: #757575;
     }
     
-    p {
+    button p {
         display: flex;
         justify-content: center;
         align-items: center;

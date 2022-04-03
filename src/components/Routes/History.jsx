@@ -20,7 +20,6 @@ function History() {
     const [dailyHabits, setDailyHabits] = useState(null);
 
     useEffect(() => {
-        console.log('chamou useEffect');
         const promise = axios.get(`${url}/history/daily`, config);
 
         promise.then(response => {
@@ -29,12 +28,10 @@ function History() {
                 response.data.map(habit => [
                     habit.day,
                     habit.habits])
-            )
-            console.log(habitsMap);
-            console.log(typeof (habitsMap));
+            );
             setDailyHabits(habitsMap);
         });
-        promise.catch(error => console.log(error.response));
+        promise.catch(error => alert(error.response.data.details));
     }, []);
 
     function dailyHabit(date) {
@@ -70,7 +67,6 @@ function History() {
                         onChange={onChange}
                         locale="pt-BR"
                         value={value}
-                        onClickDay={(e) => { console.log(e.getDate()) }}
                         formatDay={(locale, date) => dailyHabit(date)}
                     />
                 </CalendarStyle>
