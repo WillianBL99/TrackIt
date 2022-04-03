@@ -18,12 +18,12 @@ function History() {
 
     const [value, onChange] = useState(new Date());
     const [dailyHabits, setDailyHabits] = useState(null);
+    const [habitList, setHabitList] = useState([]);
 
     useEffect(() => {
         const promise = axios.get(`${url}/history/daily`, config);
 
         promise.then(response => {
-            console.log(response.data);
             const habitsMap = new Map(
                 response.data.map(habit => [
                     habit.day,
@@ -56,6 +56,24 @@ function History() {
         return new Date(dateJoined).toLocaleDateString();
     }
 
+    function showHabits(date) {
+        if (dailyHabits) {
+            const dateFormatted = formateDate(date);
+            if (dailyHabits.has(dateFormatted)) {
+                setHabitList(
+                    dailyHabits.get(dateFormatted).map(habit => {
+                        return (
+                            <article key={habit.id}>
+                                <h2>{habit.name}</h2>
+                                <p>{habit.done}</p>
+                            </article>
+                        )
+                    })
+                );
+            } else setHabitList([]);
+        }
+    }
+
     return (
         <>
             <Header />
@@ -68,8 +86,10 @@ function History() {
                         locale="pt-BR"
                         value={value}
                         formatDay={(locale, date) => dailyHabit(date)}
+                        onClickDay={(date) => {showHabits(date)}}
                     />
                 </CalendarStyle>
+                {habitList}
             </Conteiner>
             <Footer />
         </>
