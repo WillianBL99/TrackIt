@@ -63,7 +63,8 @@ export default function App() {
 
 
     useEffect(() => {
-        updateLocalStorageTasksState();
+        if(localStorage.getItem('userInfo'))
+            updateLocalStorageTasksState();
     }, [tasksState]);
 
     return (

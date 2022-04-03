@@ -8,29 +8,44 @@ import LogoImg from '../../assets/logo.svg'
 import UserContext from "../../providers/UserContext";
 
 function Login() {
+    console.log('Login');
     const [isLoading, setIsLoading] = useState(false);
     const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
     const { state } = useLocation();
     const [userData, setUserData] = useState({ email: '', password: '' });
 
-    function storeLogin(info) {
-        const { token, image, name, email } = info;
-        const userInfo = {
-            config: { headers: { Authorization: `Bearer ${token}` } },
-            image,
-            name,
-            email
-        }
-        localStorage.setItem('userInfo', JSON.stringify(userInfo));
-        setUser(userInfo)
+    if (localStorage.getItem('userInfo')) {
+        const { email, password } = JSON.parse(localStorage.getItem('userInfo'));
+        if (!(userData.email && userData.password)) setUserData({ email, password });
+        handleLogin({ email, password });
     }
 
-    function login(event) {
+    function storeLogin(info) {
+        if (userData.password) {
+            const { token, image, name, email } = info;
+            const userInfo = {
+                config: { headers: { Authorization: `Bearer ${token}` } },
+                image,
+                name,
+                email,
+                password: userData.password
+            }
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
+            setUser(userInfo)
+        }
+    }
+
+    function submitLogin(event) {
         event.preventDefault();
         setIsLoading(true);
+        handleLogin(userData);
+    }
+
+    function handleLogin(userInfo) {
+        const { email, password } = userInfo;
         const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
-        const promise = axios.post(url, userData);
+        const promise = axios.post(url, userInfo);
 
         promise.then(response => {
             setIsLoading(false);
@@ -38,7 +53,7 @@ function Login() {
             navigate('/hoje');
         });
         promise.catch(() => {
-            alert('Usuário ou senha inválidos')
+            alert('Usuário ou senha inválidos');
             setIsLoading(false);
         });
     }
@@ -59,7 +74,7 @@ function Login() {
     return (
         <Conteiner disabled={isLoading} >
             <Logo src={LogoImg} />
-            <form onSubmit={login} >
+            <form onSubmit={submitLogin} >
                 <input
                     onChange={e => { setUserData({ ...userData, email: e.target.value }) }}
                     value={userData.email} type="email"

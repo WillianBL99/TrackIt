@@ -75,8 +75,8 @@ const Conteiner = styled.footer`
         background-color: #fff;
     }
     // tradução de incompleto  em ingluês:  
-    --border-completed: #2270a8;
-    --border-incompleted: #507a19;
+    --border-completed: #507a19;
+    --border-incompleted: #2270a8;
     --bacground-shadow-completed: 
                 0 0.3rem 1.2rem -5px #000000,
                 0 -0.25rem 1.5rem #618a2c inset,
