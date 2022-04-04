@@ -58,7 +58,6 @@ function Login() {
     }
 
     function handleLogin(userInfo) {
-        const { email, password } = userInfo;
         const url = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
         const promise = axios.post(url, userInfo);
 

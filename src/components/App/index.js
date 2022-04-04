@@ -1,5 +1,5 @@
-import '../../css/reset.css'
-import '../../css/index.css'
+import '../../styled/reset.css'
+import '../../styled/index.css'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';

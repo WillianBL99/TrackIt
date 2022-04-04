@@ -2,9 +2,9 @@ import axios from "axios";
 import styled from "styled-components";
 
 import { useContext } from "react";
-import APIUrlContext from "../../providers/APIUrlContext";
-import UserContext from "../../providers/UserContext";
-import TasksStateContext from "../../providers/TasksStateContext";
+import APIUrlContext from "../../../providers/APIUrlContext";
+import UserContext from "../../../providers/UserContext";
+import TasksStateContext from "../../../providers/TasksStateContext";
 
 
 function Task({ id, name, days, fetchTasks }) {
@@ -72,11 +72,12 @@ const Conteiner = styled.article`
 
     position: relative;
         
-    margin-top: 2.2rem;
+    margin-top: 1.2rem;
     padding: 18px;
     border-radius: 10px;
 
     background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 
     div {
         display: flex;

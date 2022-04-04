@@ -45,7 +45,7 @@ const Conteiner = styled.main`
     height: auto;
 
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.2);
     background-color: #fff;
     
     header.menu {
@@ -56,8 +56,8 @@ const Conteiner = styled.main`
     }
 
     header.menu img {
-        width: 4rem;
-        height: 4rem;
+        width: 3rem;
+        height: 3rem;
         border-radius: 50%;
     }
 
@@ -66,7 +66,7 @@ const Conteiner = styled.main`
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        margin-inline-start: 1rem;
+        margin-inline-start: 0.5rem;
     }
 
     header.menu div strong {

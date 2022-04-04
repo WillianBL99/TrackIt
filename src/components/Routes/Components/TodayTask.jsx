@@ -1,6 +1,6 @@
-import TasksStateContext from "../../providers/TasksStateContext";
-import APIUrlContext from "../../providers/APIUrlContext";
-import UserContext from "../../providers/UserContext";
+import TasksStateContext from "../../../providers/TasksStateContext";
+import APIUrlContext from "../../../providers/APIUrlContext";
+import UserContext from "../../../providers/UserContext";
 
 import { useContext } from "react";
 import { useState } from "react";
@@ -60,10 +60,11 @@ const Conteiner = styled.article`
     display: flex;
     justify-content: space-between;
 
-    margin-bottom: 2.2rem;
+    margin-bottom: 1.2rem;
     padding: 18px;
     border-radius: 10px;
     background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 
     div {
         display: flex;

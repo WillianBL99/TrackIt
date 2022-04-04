@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 import { useContext, useState } from "react";
-import Menu from "./Components/Menu";
-import UserContext from "../../providers/UserContext";
+import Menu from "./Menu";
+import UserContext from "../../../providers/UserContext";
 
 function Header() {
     const [openMenu, setOpenMenu] = useState(false);    

@@ -8,9 +8,9 @@ import { ThreeDots } from "react-loader-spinner";
 import styled from "styled-components";
 import axios from "axios";
 
-import Task from "./Task";
-import Header from "./Header";
-import Footer from "./Footer";
+import Task from "./Components/Task";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 
 function Habits() {
     const { tasksState, setTasksState } = useContext(TasksStateContext);

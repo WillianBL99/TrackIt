@@ -7,9 +7,9 @@ import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-import Footer from "./Footer";
-import TodayTask from './TodayTask';
-import Header from "./Header";
+import Header from "./Components/Header";
+import TodayTask from './Components/TodayTask';
+import Footer from "./Components/Footer";
 
 function Today() {
     const [tasks, setTasks] = useState([]);
@@ -28,10 +28,11 @@ function Today() {
         const promise = axios.get(`${url}/today`, config);
         promise.then(response => {
             updateTaskState(response.data);
-            console.log(response.data);
             setTasks(response.data);
         });
-        promise.catch(error => console.error(error.response.data));
+        promise.catch(error => {
+            console.error(error.response.data);
+        });
     }
 
     function updateTaskState(tasks) {

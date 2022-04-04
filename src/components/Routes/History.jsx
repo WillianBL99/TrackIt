@@ -1,4 +1,4 @@
-import CalendarStyle from './CalendarStyled';
+import CalendarStyle from '../../styled/CalendarStyled';
 import 'react-calendar/dist/Calendar.css';
 
 import { useEffect, useState, useContext } from 'react';
@@ -6,8 +6,8 @@ import { useEffect, useState, useContext } from 'react';
 import APIUrlContext from '../../providers/APIUrlContext';
 import UserContext from '../../providers/UserContext';
 import styled from 'styled-components';
-import Header from './Header';
-import Footer from './Footer';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
 import Calendar from 'react-calendar';
 import axios from 'axios';
 

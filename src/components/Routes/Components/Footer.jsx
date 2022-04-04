@@ -4,7 +4,7 @@ import {useContext} from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { Link } from "react-router-dom";
 
-import TasksStateContext from "../../providers/TasksStateContext";
+import TasksStateContext from "../../../providers/TasksStateContext";
 import styled from "styled-components"
 
 function Footer() {
