@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 
 const CalendarStyle = styled.div`
+
+    --selection-size: 2rem;
     
     width: 100%;
     display: flex;
@@ -37,15 +39,13 @@ const CalendarStyle = styled.div`
     
     .react-calendar__navigation button {
         color: var(--color-header);
-        min-width: 44px;
-        background: none;
-        font-size: 16px;
+        font-size: var(--font-size-p);
         margin-top: 8px;
     }
     
     .react-calendar__navigation button:enabled:hover,
     .react-calendar__navigation button:enabled:focus {
-        background-color: #f8f8fa;
+        background-color: none;
     }
     .react-calendar__navigation button[disabled] {
         background-color: #f0f0f0;
@@ -53,6 +53,7 @@ const CalendarStyle = styled.div`
     abbr[title] {
         text-transform: uppercase;
         text-decoration: none;
+        font-size: var(--font-size-p);
     }
     
     .react-calendar__month-view__days__day--weekend {
@@ -97,9 +98,9 @@ const CalendarStyle = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        max-width: 2.5rem;
-        min-width: 2.5rem;
-        height: 2.5rem;
+        max-width: var(--selection-size);
+        min-width: var(--selection-size);
+        height: var(--selection-size);
         margin: auto;
         background: #6a748533; ;
         border-radius: 50%;
@@ -108,8 +109,8 @@ const CalendarStyle = styled.div`
     
     button.react-calendar__tile {
         background: #fff;
-        width: 3.5rem;
-        height: 3.5rem;
+        width: calc(var(--selection-size) + 1.5rem);
+        height: calc(var(--selection-size) + 1.5rem);
     }
     button.react-calendar__tile--now {
         background: #ffff76;
@@ -145,9 +146,9 @@ const CalendarStyle = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        max-width: 2.5rem;
-        min-width: 2.5rem;
-        height: 2.5rem;
+        max-width: var(--selection-size);
+        min-width: var(--selection-size);
+        height: var(--selection-size);
         margin: auto;
         border-radius: 50%;
     }

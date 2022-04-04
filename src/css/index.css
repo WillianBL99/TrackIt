@@ -19,13 +19,13 @@
 
     --backgroud-main: #F2F2F2;
 
+    --font-size-h2: 1.8rem;
+    --font-size-strong: 1.2rem;
     --font-size-login: 1.4rem;
-    --font-size-h2: 2.1rem;
-    --font-size-strong: 1.5rem;
-    --font-size-p: 1.3rem;
-    --font-size-small: 1.1rem;
+    --font-size-p: 1rem;
+    --font-size-small: 0.8rem;
 
-    --padding-inline: 2rem;
+    --padding-inline: 1rem;
 
     --height-header: 4.5rem;
 }
