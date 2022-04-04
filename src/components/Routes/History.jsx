@@ -37,7 +37,6 @@ function History() {
     function dailyHabit(date) {
         if (dailyHabits) {
             const dateFormatted = formateDate(date);
-            alert(dateFormatted);
             if (dailyHabits.has(dateFormatted)) {
                 if (habitIsDoned(dailyHabits.get(dateFormatted)))
                     return <p className='habit habit-doned'>{date.getDate()}</p>
