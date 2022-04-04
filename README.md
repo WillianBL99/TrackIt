@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+<div align="center">
+    <img width="200" src="https://user-images.githubusercontent.com/65803142/161539044-3dc15b63-9d86-4726-ae77-e964bc9bd971.svg">
+</div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1>
+    <img src="https://user-images.githubusercontent.com/65803142/160202185-ce55f21c-eb4e-4ebe-9618-1c0ccf09076c.jpg">
+</h1>
 
-## Available Scripts
+<h3 align="center">
+    <a href="track-it-eight.vercel.app">Acessar a demonstração</a>
+<h3 >
 
-In the project directory, you can run:
+# Indice
 
-### `npm start`
+- [Sobre](#-sobre)
+- [Tecnologias Utilizadas](#-tecnologias-utilizadas)
+- [Como baixar o projeto](#-como-baixar-o-projeto)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 🔖&nbsp; Sobre
+	
+O projeto **TrackIt** é uma aplicação de to do list, que foi criado no bootcamp da **Driven** com o intuito de praticarmos todo conteúdo exibido durante a semana.
+	
+[<img src="https://wakatime.com/badge/user/ea37d403-453f-4319-bd0c-77e54bb1318a/project/c9d90852-e53a-4bf8-88e6-ac0d32188868.svg" alt="wakatime">](https://wakatime.com/badge/user/ea37d403-453f-4319-bd0c-77e54bb1318a/project/ee5f39a4-23ff-40a9-b3ea-e40dc49aabd4) [![npm version](https://img.shields.io/npm/v/axios.svg?style=flat-square)](https://www.npmjs.org/package/axios)
+	
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🚀 Tecnologias utilizadas
 
-### `npm test`
+O projeto foi desenvolvido utilizando as seguintes tecnologias
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [<img src="https://img.shields.io/static/v1?label=|&message=React JS&color=61DAFB&style=flat&logo=react"/>](https://reactjs.org)
+- [<img src="https://img.shields.io/static/v1?label=|&message=CSS3&color=61DAFB&style=flat&logo=css3"/>](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
+- [<img src="https://img.shields.io/static/v1?label=|&message=Git&color=61DAFB&style=flat&logo=git"/>](https://git-scm.com)
+- [<img src="https://img.shields.io/static/v1?label=|&message=npm&color=CB3837&style=flat&logo=npm"/>](https://www.npmjs.com/package/react)
+- [<img src="https://img.shields.io/static/v1?label=|&message=Trello&color=61DAFB&style=flat&logo=trello"/>](https://trello.com/)
+	
+---
+	
+### Features
 
-### `npm run build`
+- ✔️ Cadastro de usuário
+- ✔️ Login
+- ✔️ Login automático
+- ✔️ Criação, exibição e  esclusão de hábitos
+- ✔️ Exibição de hábitos do dia
+- ✔️ Marcar hábito como concluido
+- ✔️ Exibir histórico dos hábitos
+- ✔️ Exibir todos os hábitos realizados ou não em um determinado dia
+- 🚧 Realizar Logout
+	
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🗂 Como baixar o projeto
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+	
+    # Instalar o npm
+    #  No Windows acesse
+    $  https://nodejs.org/en/
+	
+    #  No linux ou wsl
+    $  wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    #  Feche e abra o terminal novamente
+    $  nvm install --lts # 16.14.0
+    #  Verificar a versão do node
+    $  node --version # Deve exibir v16.14
+    #  Verificar a versão do nvm
+    $  nvm -v
+	
+```
+	
+```bash
+	
+    # Clonar o repositório
+    $ git clone https://github.com/WillianBL99/TrackIt.git
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    # Entrar no diretório
+    $ cd TrackIt
 
-### `npm run eject`
+    # Instalar as dependências
+    $ npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    # Iniciar o projeto
+    $ npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Desenvolvido por **Paulo Uilian Barros Lago**😊🧑🏻‍💻
