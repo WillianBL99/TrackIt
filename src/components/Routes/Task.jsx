@@ -8,17 +8,17 @@ import TasksStateContext from "../../providers/TasksStateContext";
 
 
 function Task({ id, name, days, fetchTasks }) {
-    const {tasksState, setTasksState} = useContext(TasksStateContext);
-    const {url} = useContext(APIUrlContext);
-    const {user} = useContext(UserContext);
-    const {config} = user;
+    const { tasksState, setTasksState } = useContext(TasksStateContext);
+    const { url } = useContext(APIUrlContext);
+    const { user } = useContext(UserContext);
+    const { config } = user;
 
     function deleteTask() {
         if (window.confirm('Deseja realmente excluir essa tarefa?')) {
-            
+
             const promise = axios.delete(`${url}/${id}`, config);
-            promise.then(() => {                
-                setTasksState({...tasksState, qtdTotal: tasksState.qtdTotal -2});
+            promise.then(() => {
+                setTasksState({ ...tasksState, qtdTotal: tasksState.qtdTotal - 2 });
                 fetchTasks()
             });
             promise.catch(error => console.error(error.response));
@@ -28,8 +28,10 @@ function Task({ id, name, days, fetchTasks }) {
 
     return (
         <Conteiner>
-            <div onClick={deleteTask}><ion-icon name="trash-outline"></ion-icon></div>
-            <p>{name}</p>
+            <div >
+                <p>{name}</p>
+                <ion-icon onClick={deleteTask} name="trash-outline"></ion-icon>
+            </div>
             <div className="weekdays">
                 <Days days={days} />
             </div>
@@ -76,12 +78,18 @@ const Conteiner = styled.article`
 
     background-color: #fff;
 
-    ion-icon {
-        position: absolute;
-        top: 0;
-        right: 0;
+    div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+        width: 100%;
+    }
 
-        margin: 10px;
+    ion-icon {
+        min-width: 1.6rem;
+        margin: 0px;
+        margin-bottom: auto;
         font-size: 1.6rem;
         color: var(--color-text-gray);
     }
@@ -92,13 +100,15 @@ const Conteiner = styled.article`
 
     p {
         margin: 0;
-        margin-bottom: 18px;
+        line-height: calc(var(--font-size-p) * 1.2);
+        text-align: left;
         font-size: var(--font-size-p);
         color: var(--color-text-gray);
     }
 
-    .weekdays {
+    div.weekdays {
         display: flex;
+        justify-content: flex-start
     }
 
     .weekdays span {

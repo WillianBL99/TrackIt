@@ -14,7 +14,6 @@ import History from '../Routes/History';
 import Login from '../Routes/Login';
 import Register from '../Routes/Register';
 import Today from '../Routes/Today';
-import Teste from '../Routes/Teste';
 
 
 export default function App() {
@@ -78,7 +77,6 @@ export default function App() {
                             <Route path='/habitos' element={<Habits />} />
                             <Route path='/hoje' element={<Today />} />
                             <Route path='/historico' element={<History />} />
-                            <Route path='/teste' element={<Teste />} />
                         </Routes>
                     </BrowserRouter>
                 </TasksStateContext.Provider>
