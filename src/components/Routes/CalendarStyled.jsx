@@ -17,7 +17,7 @@ const CalendarStyle = styled.div`
         background-color: #fff;
         color: var(--color-main);
         border-radius: 8px;
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.2);
         font-family: Arial, Helvetica, sans-serif;
         line-height: 1.125em;
     }
@@ -114,7 +114,7 @@ const CalendarStyle = styled.div`
     }
     button.react-calendar__tile--now {
         background: #ffff76;
-        color: #000;
+        border-radius: 0;
     }
     
     .react-calendar--selectRange .react-calendar__tile--hover {
@@ -146,6 +146,7 @@ const CalendarStyle = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+        text-align: center;
         max-width: var(--selection-size);
         min-width: var(--selection-size);
         height: var(--selection-size);
@@ -176,16 +177,16 @@ const CalendarStyle = styled.div`
     
     
     .react-calendar__tile.react-calendar__month-view__days__day--neighboringMonth {
-        color: #757575;
+        color: #a3a3a3;
     }
 
     .react-calendar__tile.react-calendar__month-view__days__day--neighboringMonth p.habit-not-doned {
         background: #e0adad;
-        color: #a0a0a0;
+        color: #a3a3a3;
     }
     .react-calendar__tile.react-calendar__month-view__days__day--neighboringMonth p.habit-doned {
         background: #b6d6a7;
-        color: #a0a0a0;
+        color: #a3a3a3;
     }
 
     `
