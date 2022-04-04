@@ -57,7 +57,7 @@ const Conteiner = styled.footer`
     box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.25);
 
     a {
-        font-size: var(--font-size-p);
+        font-size: var(--font-size-strong);
         color: var(--color-main);
     }
 
