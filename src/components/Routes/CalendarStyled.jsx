@@ -168,13 +168,8 @@ const CalendarStyle = styled.div`
     .react-calendar__month-view__days__day--weekend p.habit.habit-not-doned {
         color: #2e0a0a;
     }
-
-    .react-calendar__tile--active P.habit-doned {
-        background: #9ebb90;
-        font-weight: bold;
-    }
-    .react-calendar__tile--active P.habit-not-doned {
-        background: #eb7c7c;
+    .react-calendar__tile--active P.habit {
+        border: 2px solid var(--color-header);
         font-weight: bold;
     }
     
@@ -184,11 +179,11 @@ const CalendarStyle = styled.div`
     }
 
     .react-calendar__tile.react-calendar__month-view__days__day--neighboringMonth p.habit-not-doned {
-        background: #865757;
+        background: #e0adad;
         color: #a0a0a0;
     }
     .react-calendar__tile.react-calendar__month-view__days__day--neighboringMonth p.habit-doned {
-        background: #658556;
+        background: #b6d6a7;
         color: #a0a0a0;
     }
 

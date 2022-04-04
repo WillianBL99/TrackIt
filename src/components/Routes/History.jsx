@@ -58,22 +58,29 @@ function History() {
         return dateFormatted;
     }
 
-    function showHabits(date) {
+    function fillHabitList(date) {
         if (dailyHabits) {
             const dateFormatted = formateDate(date);
             if (dailyHabits.has(dateFormatted)) {
                 setHabitList(
                     dailyHabits.get(dateFormatted).map(habit => {
-                        return (
-                            <article key={habit.id}>
-                                <h2>{habit.name}</h2>
-                                <p>{habit.done}</p>
-                            </article>
-                        )
+                        return <Habit key={habit.id} title={habit.name} done={habit.done} />
                     })
                 );
             } else setHabitList([]);
         }
+    }
+
+    function showHabits() {
+        if (habitList.length > 0)
+            return (
+                <>
+                    <h3>Habitos do dia selecinado</h3>
+                    {habitList}
+                </>
+            );
+        else
+            return <h3>Nenhum hábito selecinado</h3>
     }
 
     return (
@@ -88,10 +95,10 @@ function History() {
                         locale="pt-BR"
                         value={value}
                         formatDay={(locale, date) => dailyHabit(date)}
-                        onClickDay={(date) => {showHabits(date)}}
+                        onClickDay={(date) => { fillHabitList(date) }}
                     />
                 </CalendarStyle>
-                {habitList}
+                {showHabits()}
             </Conteiner>
             <Footer />
         </>
@@ -99,6 +106,39 @@ function History() {
 }
 
 export default History;
+
+function Habit({ title, done }) {
+    const icon = done ? 'checkmark' : 'close';
+    return (
+        <HabitContainer state={done} >
+            <p>{title}</p>
+            <ion-icon name={`${icon}-outline`}></ion-icon>
+        </HabitContainer>
+    )
+}
+
+const HabitContainer = styled.article`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    background-color: #fff;
+
+    >p {
+        font-size: var(--font-size-small);
+        color: var(--color-text-gray);
+    }
+
+    >ion-icon {
+        font-size: 100%;
+        min-width: 1rem;
+        margin-left: 0.5rem;
+        color: ${props => props.state ? 'var(--color-green)' : 'var(--color-red)'};
+    }
+`
 
 const Conteiner = styled.main`  
     display: flex;
@@ -118,6 +158,12 @@ const Conteiner = styled.main`
         margin-top: 2.8rem;
         font-size: var(--font-size-h2);
         color: var(--color-header);
+    }
+
+    h3{
+        margin-block: 1rem;
+        font-size: var(--font-size-strong);
+        color: var(--color-text-gray);
     }
 
     >p {
