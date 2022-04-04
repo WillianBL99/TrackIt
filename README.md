@@ -2,8 +2,9 @@
     <img width="200" src="https://user-images.githubusercontent.com/65803142/161539044-3dc15b63-9d86-4726-ae77-e964bc9bd971.svg">
 </div>
 
-<h1>
-    <img src="https://user-images.githubusercontent.com/65803142/160202185-ce55f21c-eb4e-4ebe-9618-1c0ccf09076c.jpg">
+<h1>	
+    <img src="https://user-images.githubusercontent.com/65803142/161637661-9ab2e3ff-c970-41fb-a90b-f65bd62a18de.png">
+	<a size="-5" href='https://br.freepik.com/fotos-vetores-gratis/maquete'><small size="5px">br.freepik.com</small></a>
 </h1>
 
 <h3 align="center">
@@ -18,7 +19,7 @@
 
 ## 🔖&nbsp; Sobre
 	
-O projeto **TrackIt** é uma aplicação de to do list, que foi criado no bootcamp da **Driven** com o intuito de praticarmos todo conteúdo exibido durante a semana.
+O projeto **TrackIt**, é uma aplicação de to do list, que foi criado no bootcamp da **Driven**, com o intuito de praticarmos todo conteúdo exibido no decorrer o mês. Durante o desenvolvimento deste site tivemos que aprender a utilizar alguns conceitos e ferramentas novas, como: React Calendar, React Circular Progressbar, React Loader Spinner, o uso de Context API para realizar o compartilhamento de informações entre componentes e até registrar e logar um usuário na API que utilizamos. Foi um projeto desafiador e ao mesmo tempo gratificante devido ao resultado final e à quantidade de assuntos abordados.
 	
 [<img src="https://wakatime.com/badge/user/ea37d403-453f-4319-bd0c-77e54bb1318a/project/c9d90852-e53a-4bf8-88e6-ac0d32188868.svg" alt="wakatime">](https://wakatime.com/badge/user/ea37d403-453f-4319-bd0c-77e54bb1318a/project/ee5f39a4-23ff-40a9-b3ea-e40dc49aabd4) [![npm version](https://img.shields.io/npm/v/axios.svg?style=flat-square)](https://www.npmjs.org/package/axios)
 	
@@ -41,12 +42,13 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
 - ✔️ Cadastro de usuário
 - ✔️ Login
 - ✔️ Login automático
+- ✔️ Realizar Logout
 - ✔️ Criação, exibição e  esclusão de hábitos
 - ✔️ Exibição de hábitos do dia
 - ✔️ Marcar hábito como concluido
 - ✔️ Exibir histórico dos hábitos
 - ✔️ Exibir todos os hábitos realizados ou não em um determinado dia
-- 🚧 Realizar Logout
+- 🚧 Concluir implementação de loadings
 	
 ---
 
