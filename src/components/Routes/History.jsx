@@ -54,7 +54,9 @@ function History() {
 
     function formateDate(date) {
         const dateJoined = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-        return new Date(dateJoined).toLocaleDateString();
+        const dayjs = require('dayjs');
+        const dateFormatted = dayjs(dateJoined).format('DD/MM/YYYY');
+        return dateFormatted;
     }
 
     function showHabits(date) {
