@@ -49,6 +49,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
 - ✔️ Exibir histórico dos hábitos
 - ✔️ Exibir todos os hábitos realizados ou não em um determinado dia
 - 🚧 Concluir implementação de loadings
+- 🚧 Melhorar responsividade para desktop
 	
 ---
 
